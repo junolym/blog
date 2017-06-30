@@ -1,0 +1,580 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="采用暴力碰撞测试方法，如果两个正则表达式被相当长度的字符串碰撞成功，就认为两正则表达式等价。相比化为最小DFA再判断的优点是不存在算法错误导致的误判。 字符集： 例如：[‘a’,’b’]正则表达式1：  例如：b(ab?)正则表达式2：  例如：ba(aba)测试长度：结果：       var f = document.getElementById(&apos;form&apos;);     function s">
+<meta property="og:type" content="website">
+<meta property="og:title" content="正则表达式等价判断（Beta）">
+<meta property="og:url" content="https://chenjx.cn/regexp-isequals.html">
+<meta property="og:site_name" content="爱生活，爱的的">
+<meta property="og:description" content="采用暴力碰撞测试方法，如果两个正则表达式被相当长度的字符串碰撞成功，就认为两正则表达式等价。相比化为最小DFA再判断的优点是不存在算法错误导致的误判。 字符集： 例如：[‘a’,’b’]正则表达式1：  例如：b(ab?)正则表达式2：  例如：ba(aba)测试长度：结果：       var f = document.getElementById(&apos;form&apos;);     function s">
+<meta property="og:updated_time" content="2017-03-09T07:16:37.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="正则表达式等价判断（Beta）">
+<meta name="twitter:description" content="采用暴力碰撞测试方法，如果两个正则表达式被相当长度的字符串碰撞成功，就认为两正则表达式等价。相比化为最小DFA再判断的优点是不存在算法错误导致的误判。 字符集： 例如：[‘a’,’b’]正则表达式1：  例如：b(ab?)正则表达式2：  例如：ba(aba)测试长度：结果：       var f = document.getElementById(&apos;form&apos;);     function s">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://chenjx.cn/regexp-isequals.html"/>
+
+
+
+
+
+  <title>正则表达式等价判断（Beta） | 爱生活，爱的的</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">爱生活，爱的的</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Startseite
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archiv
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+  <header class="post-header">
+
+	<h1 class="post-title" itemprop="name headline">正则表达式等价判断（Beta）</h1>
+
+
+
+</header>
+
+    
+    
+      <p>采用暴力碰撞测试方法，如果两个正则表达式被相当长度的字符串碰撞成功，就认为两正则表达式等价。<br>相比化为最小DFA再判断的优点是不存在算法错误导致的误判。</p>
+<form action="#" id="form"><br>字符集：<input type="text" name="s"> 例如：[‘a’,’b’]<br><br><br>正则表达式1： <input type="text" name="re1"> 例如：b<em>(ab?)</em><br><br><br>正则表达式2： <input type="text" name="re2"> 例如：b<em>a</em>(aba<em>)</em><br><br><br>测试长度：<input type="text" name="max" value="15"><br><br><br><input type="button" value="测试" onclick="start()"><br><br>结果：<p id="result"></p><br></form>
+
+<script type="text/javascript">
+    var f = document.getElementById('form');
+    function start() {
+        var s = eval(document.getElementsByName('s')[0].value);
+        var re1 = eval('/^'+document.getElementsByName('re1')[0].value+'$/');
+        var re2 = eval('/^'+document.getElementsByName('re2')[0].value+'$/');
+        var maxLength = parseInt(document.getElementsByName('max')[0].value);
+        var msg = document.getElementById('result');
+        msg.innerHTML = '测试中';
+        msg.innerHTML = isEquals(re1, re2, s, maxLength) ? '等价' : '不等价，字符串：' + failed +
+         ': 1' + (re1.test(failed) ? '匹配' : '不匹配') + ' 2' + (re2.test(failed) ? '匹配' : '不匹配');
+    }
+
+    var maxLength = 15;
+    var s = [];
+    var failed = "";
+
+    function isEquals(re1, re2, s, maxLength) {
+        var q = [''];
+        while (q.length) {
+            var st = q[0];
+            if (re1.test(st) != re2.test(st)) {
+                failed = st;
+                return false;
+            }
+            if (st.length < maxLength) {
+                for (var i in s) {
+                    q.push(st+s[i]);
+                }
+            }
+            q.shift();
+        }
+        return true;
+    }
+    function isEquals2(re1, re2, _s, _maxLength) {
+        s = _s || s;
+        maxLength = _maxLength || maxLength;
+        return test(re1, re2, '');
+    }
+    function test(re1, re2, st) {
+        if (st.length > maxLength)
+            return true;
+        if (re1.test(st) == re2.test(st)) {
+            var pass = true;
+            for (var i in s) {
+                pass = pass && test(re1, re2, st+s[i]);
+                if (!pass)
+                    break;
+            }
+            return pass;
+        }
+        failed = st;
+        return false;
+    }
+</script>
+    
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Robin Chen" />
+          <p class="site-author-name" itemprop="name">Robin Chen</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-name">Artikel</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">Tags</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Robin Chen</span>
+</div>
+
+
+<div class="powered-by">
+  Erstellt mit  <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

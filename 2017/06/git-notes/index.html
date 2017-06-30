@@ -1,0 +1,687 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="重置：撤销最近的n个提交，或重新提交 问题情景：提交的东西有问题，但是不想留下黑历史，或者东西是不可告人的（例如把用户名密码交上去了）  使用git的重置（reset）功能，默认是软重置（–soft）只撤销commit，不改变本地文件。加上--hard则是把本地文件也重置。后面传入的是最后一次正确提交的hash。 变基：在很多提交中挑选有用的，废弃错误的修改 问题情景：n多个提交中，有一部分是有用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git使用笔记">
+<meta property="og:url" content="https://chenjx.cn/2017/06/git-notes/index.html">
+<meta property="og:site_name" content="爱生活，爱的的">
+<meta property="og:description" content="重置：撤销最近的n个提交，或重新提交 问题情景：提交的东西有问题，但是不想留下黑历史，或者东西是不可告人的（例如把用户名密码交上去了）  使用git的重置（reset）功能，默认是软重置（–soft）只撤销commit，不改变本地文件。加上--hard则是把本地文件也重置。后面传入的是最后一次正确提交的hash。 变基：在很多提交中挑选有用的，废弃错误的修改 问题情景：n多个提交中，有一部分是有用">
+<meta property="og:updated_time" content="2017-06-29T18:37:32.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Git使用笔记">
+<meta name="twitter:description" content="重置：撤销最近的n个提交，或重新提交 问题情景：提交的东西有问题，但是不想留下黑历史，或者东西是不可告人的（例如把用户名密码交上去了）  使用git的重置（reset）功能，默认是软重置（–soft）只撤销commit，不改变本地文件。加上--hard则是把本地文件也重置。后面传入的是最后一次正确提交的hash。 变基：在很多提交中挑选有用的，废弃错误的修改 问题情景：n多个提交中，有一部分是有用">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://chenjx.cn/2017/06/git-notes/"/>
+
+
+
+
+
+  <title>Git使用笔记 | 爱生活，爱的的</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">爱生活，爱的的</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Startseite
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archiv
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://chenjx.cn/2017/06/git-notes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Robin Chen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="爱生活，爱的的">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Git使用笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-28T03:35:31+08:00">
+                2017-06-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="重置：撤销最近的n个提交，或重新提交"><a href="#重置：撤销最近的n个提交，或重新提交" class="headerlink" title="重置：撤销最近的n个提交，或重新提交"></a>重置：撤销最近的n个提交，或重新提交</h2><blockquote>
+<p>问题情景：提交的东西有问题，但是不想留下黑历史，或者东西是不可告人的（例如把用户名密码交上去了）</p>
+</blockquote>
+<p>使用git的重置（reset）功能，默认是软重置（–soft）只撤销commit，不改变本地文件。加上<code>--hard</code>则是把本地文件也重置。后面传入的是<strong>最后一次正确提交的hash</strong>。</p>
+<h2 id="变基：在很多提交中挑选有用的，废弃错误的修改"><a href="#变基：在很多提交中挑选有用的，废弃错误的修改" class="headerlink" title="变基：在很多提交中挑选有用的，废弃错误的修改"></a>变基：在很多提交中挑选有用的，废弃错误的修改</h2><blockquote>
+<p>问题情景：n多个提交中，有一部分是有用的，一部分是错误的。而且错误的比较多，用fixup会比较难看。</p>
+</blockquote>
+<p>使用git的变基功能（rebase），然后<code>pick</code>有用的提交，<code>drop</code>用的。还可以标记<code>fixup</code>。具体看文档吧。这里只是给一个解决方案的思路。</p>
+<h2 id="修改过去的commit记录的名字和邮箱"><a href="#修改过去的commit记录的名字和邮箱" class="headerlink" title="修改过去的commit记录的名字和邮箱"></a>修改过去的commit记录的名字和邮箱</h2><blockquote>
+<p>问题情景：git全局配置的用户名和邮箱是github用的，和在公司gitlab上用的不一样，然后commit完才发现名字格式跟别人不一样，邮箱也不是公司邮箱。</p>
+</blockquote>
+<p>Learned from <a href="https://lmbj.net/blog/how-do-i-change-the-author-of-a-commit-in-git/" target="_blank" rel="external">https://lmbj.net/blog/how-do-i-change-the-author-of-a-commit-in-git/</a><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span> !/bin/sh</div><div class="line"></div><div class="line">git filter-branch --env-filter '</div><div class="line"></div><div class="line">an="$GIT_AUTHOR_NAME"</div><div class="line">am="$GIT_AUTHOR_EMAIL"</div><div class="line">cn="$GIT_COMMITTER_NAME"</div><div class="line">cm="$GIT_COMMITTER_EMAIL"</div><div class="line"></div><div class="line">if [ "$GIT_COMMITTER_EMAIL" = "your@email.to.match" ]</div><div class="line">then</div><div class="line">    cn="Your New Committer Name"</div><div class="line">    cm="Your New Committer Email"</div><div class="line">fi</div><div class="line">if [ "$GIT_AUTHOR_EMAIL" = "your@email.to.match" ]</div><div class="line">then</div><div class="line">    an="Your New Author Name"</div><div class="line">    am="Your New Author Email"</div><div class="line">fi</div><div class="line"></div><div class="line">export GIT_AUTHOR_NAME="$an"</div><div class="line">export GIT_AUTHOR_EMAIL="$am"</div><div class="line">export GIT_COMMITTER_NAME="$cn"</div><div class="line">export GIT_COMMITTER_EMAIL="$cm"</div><div class="line">'</div></pre></td></tr></table></figure></p>
+<h2 id="git指定commit的时间"><a href="#git指定commit的时间" class="headerlink" title="git指定commit的时间"></a>git指定commit的时间</h2><blockquote>
+<p>问题情景：过了交作业的ddl了。。。</p>
+</blockquote>
+<p>git commit加上参数<code>--date</code>，并设置GIT_COMMITTER_DATE变量。传入时间支持Git internal format、RFC 2822、ISO 8601。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">MYDATE=`date --rfc-2822 --date=&quot;2 days ago&quot;`</div><div class="line">GIT_COMMITTER_DATE=$MYDATE git commit --amend --date &quot;$MYDATE&quot;</div></pre></td></tr></table></figure></p>
+<p>或者使用filter-branch<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">git filter-branch --env-filter \</div><div class="line"> &apos;if [ $GIT_COMMIT = 119f9ecf58069b265ab22f1f97d2b648faf932e0 ]</div><div class="line"> then</div><div class="line"> export GIT_AUTHOR_DATE=&quot;Fri Jan 2 21:38:53 2009 -0800&quot;</div><div class="line"> export GIT_COMMITTER_DATE=&quot;Sat May 19 01:01:01 2007 -0700&quot;</div><div class="line"> fi&apos;</div></pre></td></tr></table></figure></p>
+<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><p><a href="https://blog.louie.lu/2017/06/01/%E5%85%A8%E9%9D%A2%E7%AB%84%E6%94%B9-git-commit-%E6%AD%B7%E5%8F%B2%E8%A8%98%E9%8C%84/" target="_blank" rel="external">https://blog.louie.lu/2017/06/01/%E5%85%A8%E9%9D%A2%E7%AB%84%E6%94%B9-git-commit-%E6%AD%B7%E5%8F%B2%E8%A8%98%E9%8C%84/</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/cpp-ta-note-1/" rel="next" title="C++助教笔记 —— 虚析构函数">
+                <i class="fa fa-chevron-left"></i> C++助教笔记 —— 虚析构函数
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Übersicht
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Robin Chen" />
+          <p class="site-author-name" itemprop="name">Robin Chen</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-name">Artikel</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">Tags</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#重置：撤销最近的n个提交，或重新提交"><span class="nav-number">1.</span> <span class="nav-text">重置：撤销最近的n个提交，或重新提交</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#变基：在很多提交中挑选有用的，废弃错误的修改"><span class="nav-number">2.</span> <span class="nav-text">变基：在很多提交中挑选有用的，废弃错误的修改</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改过去的commit记录的名字和邮箱"><span class="nav-number">3.</span> <span class="nav-text">修改过去的commit记录的名字和邮箱</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git指定commit的时间"><span class="nav-number">4.</span> <span class="nav-text">git指定commit的时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文章"><span class="nav-number">5.</span> <span class="nav-text">参考文章</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Robin Chen</span>
+</div>
+
+
+<div class="powered-by">
+  Erstellt mit  <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

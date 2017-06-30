@@ -1,0 +1,700 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="1. 百度网盘自定义分享密码学习自老D  百度网盘私密分享的文件不容易被取消，可是提取的时候要输入4个字符的提取码。如果能自定义提取码是不是很美妙呢？ //给妹子分享文件告诉她提取码是她生日^^ 方法在这里，按照步骤来： 1. 选中文件，点击分享。先不要点私密分享！2. Ctrl+Alt+I（或F12）打开浏览器的控制台，在Console页粘贴如下代码并回车。1javascript:require">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript的奇技淫巧">
+<meta property="og:url" content="https://chenjx.cn/2016/12/small-skills/index.html">
+<meta property="og:site_name" content="爱生活，爱的的">
+<meta property="og:description" content="1. 百度网盘自定义分享密码学习自老D  百度网盘私密分享的文件不容易被取消，可是提取的时候要输入4个字符的提取码。如果能自定义提取码是不是很美妙呢？ //给妹子分享文件告诉她提取码是她生日^^ 方法在这里，按照步骤来： 1. 选中文件，点击分享。先不要点私密分享！2. Ctrl+Alt+I（或F12）打开浏览器的控制台，在Console页粘贴如下代码并回车。1javascript:require">
+<meta property="og:updated_time" content="2017-06-20T09:18:44.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript的奇技淫巧">
+<meta name="twitter:description" content="1. 百度网盘自定义分享密码学习自老D  百度网盘私密分享的文件不容易被取消，可是提取的时候要输入4个字符的提取码。如果能自定义提取码是不是很美妙呢？ //给妹子分享文件告诉她提取码是她生日^^ 方法在这里，按照步骤来： 1. 选中文件，点击分享。先不要点私密分享！2. Ctrl+Alt+I（或F12）打开浏览器的控制台，在Console页粘贴如下代码并回车。1javascript:require">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://chenjx.cn/2016/12/small-skills/"/>
+
+
+
+
+
+  <title>JavaScript的奇技淫巧 | 爱生活，爱的的</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">爱生活，爱的的</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Startseite
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archiv
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://chenjx.cn/2016/12/small-skills/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Robin Chen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="爱生活，爱的的">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JavaScript的奇技淫巧</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-02T13:00:31+08:00">
+                2016-12-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1-百度网盘自定义分享密码"><a href="#1-百度网盘自定义分享密码" class="headerlink" title="1. 百度网盘自定义分享密码"></a>1. 百度网盘自定义分享密码</h2><p><em>学习自<a href="https://laod.cn/black-technology/baidu-wangpan-tiquma.html" target="_blank" rel="external">老D</a></em> </p>
+<p>百度网盘私密分享的文件不容易被取消，可是提取的时候要输入4个字符的提取码。<br>如果能自定义提取码是不是很美妙呢？ //给妹子分享文件告诉她提取码是她生日^^</p>
+<p>方法在这里，按照步骤来：</p>
+<h4 id="1-选中文件，点击分享。先不要点私密分享！"><a href="#1-选中文件，点击分享。先不要点私密分享！" class="headerlink" title="1. 选中文件，点击分享。先不要点私密分享！"></a>1. 选中文件，点击分享。先不要点私密分享！</h4><h4 id="2-Ctrl-Alt-I（或F12）打开浏览器的控制台，在Console页粘贴如下代码并回车。"><a href="#2-Ctrl-Alt-I（或F12）打开浏览器的控制台，在Console页粘贴如下代码并回车。" class="headerlink" title="2. Ctrl+Alt+I（或F12）打开浏览器的控制台，在Console页粘贴如下代码并回车。"></a>2. Ctrl+Alt+I（或F12）打开浏览器的控制台，在<code>Console</code>页粘贴如下代码并回车。</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">javascript:<span class="built_in">require</span>([<span class="string">"function-widget-1:share/util/service/createLinkShare.js"</span>]).prototype.makePrivatePassword=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="keyword">return</span> prompt(<span class="string">"请输入提取码"</span>,<span class="string">"1024"</span>)&#125;</div></pre></td></tr></table></figure>
+<h4 id="3-点击私密分享，在弹出框中输入4个字符，中文占3个字符。"><a href="#3-点击私密分享，在弹出框中输入4个字符，中文占3个字符。" class="headerlink" title="3. 点击私密分享，在弹出框中输入4个字符，中文占3个字符。"></a>3. 点击私密分享，在弹出框中输入4个字符，中文占3个字符。</h4><p>实在不明白可以看老D的<a href="https://laod.cn/black-technology/baidu-wangpan-tiquma.html" target="_blank" rel="external">原文</a>，有动图。<br>不要问我为什么默认是1024。不要想歪。</p>
+<h2 id="2-使用多行字符串"><a href="#2-使用多行字符串" class="headerlink" title="2. 使用多行字符串"></a>2. 使用多行字符串</h2><p>学习自： <a href="http://www.cnblogs.com/ziyunfei/archive/2012/10/04/2711551.html" target="_blank" rel="external">http://www.cnblogs.com/ziyunfei/archive/2012/10/04/2711551.html</a><br><figure class="highlight js"><figcaption><span>line-numbers</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">hereDoc</span>(<span class="params">f</span>) </span>&#123;　</div><div class="line">    <span class="keyword">return</span> f.toString().replace(<span class="regexp">/^[^\/]+\/\*!?\s?/</span>, <span class="string">''</span>).replace(<span class="regexp">/\*\/[^\/]+$/</span>, <span class="string">''</span>);</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> string = hereDoc(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;<span class="comment">/*</span></div><div class="line">我</div><div class="line">你</div><div class="line">他</div><div class="line">*/&#125;);</div><div class="line"><span class="built_in">console</span>.log(string);</div></pre></td></tr></table></figure></p>
+<p>我的简化版<br><figure class="highlight js"><figcaption><span>line-numbers</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> multiline = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;<span class="comment">/*</span></div><div class="line">"shaungyinhao"</div><div class="line">'danyinhao'</div><div class="line">*/&#125;).toString().slice(<span class="number">16</span>, <span class="number">-3</span>);</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(multiline);</div></pre></td></tr></table></figure></p>
+<p>将-3改为-5则去掉最后的换行。</p>
+<p>javascript函数转字符串的格式固定，这里使用硬编码没有问题。</p>
+<h2 id="3-获取中文日期和时间"><a href="#3-获取中文日期和时间" class="headerlink" title="3. 获取中文日期和时间"></a>3. 获取中文日期和时间</h2><p>这不是什么难题，但是传统的方法是通过Date对象的getYear等函数得到日期时间的各部分数字，然后再拼凑起来。其实有更简便的方法，利用JavaScript的toLocaleString格式化成不同区域的标准。如果还需要进一步格式化，使用字符串替换也可以实现大多数需求。如下<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 普通格式</span></div><div class="line">(<span class="keyword">new</span> <span class="built_in">Date</span>()).toLocaleString(<span class="string">'zh-CN'</span>, &#123; <span class="attr">hour12</span> : <span class="literal">false</span> &#125;)</div><div class="line"><span class="comment">// 进一步替换</span></div><div class="line">(<span class="keyword">new</span> <span class="built_in">Date</span>()).toLocaleString(<span class="string">'zh-CN'</span>, &#123; <span class="attr">hour12</span> : <span class="literal">false</span> &#125;).replace(<span class="regexp">/[\/|-]/</span>, <span class="string">'年'</span>).replace(<span class="regexp">/[\/|-]/</span>, <span class="string">'月'</span>).replace(<span class="regexp">/ /</span>, <span class="string">'日 '</span>)</div></pre></td></tr></table></figure></p>
+<p>得到结果如下：（可在不同浏览器访问本页检查兼容性）<br><a href="javascript:$('#date1').html((new Date()).toLocaleString('zh-CN', { hour12 : false }));$('#date2').html((new Date()).toLocaleString('zh-CN', { hour12 : false }).replace(/[\/|-]/, '年').replace(/[\/|-]/, '月').replace(/ /, '日 '))" target="_blank" rel="external">显示结果</a><br>普通格式：<span id="date1"></span><br>替换后：<span id="date2"></span><br></p>
+<h2 id="4-生成随机字符串"><a href="#4-生成随机字符串" class="headerlink" title="4. 生成随机字符串"></a>4. 生成随机字符串</h2><ul>
+<li>生成随机数用<code>Math.random()</code>就可以了。得到的是0~1的随机数。</li>
+<li><p>如果需要得到一定范围内<code>[minNum, minNum+range)</code>的随机整数，用</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * range) + minNum;</div></pre></td></tr></table></figure>
+</li>
+<li><p>如果需要得到随机字符串呢？一种非常简便的做法是</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Math</span>.random().toString(<span class="number">36</span>).substr(<span class="number">2</span>)</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>得到的是数字和小写字母组成的随机字符串。其中36表示进制，支持2~36，默认10。机智的你应该很快发现，当这个数为奇数时，生成的字符串会特别长。这种方法最大的局限就是最多只能包括小写字母，不能大小写混合。</p>
+<ul>
+<li>手动实现，支持任意字符集。代码就很难看了，不如一行风骚。<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> chars = <span class="string">'0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz'</span>.split(<span class="string">''</span>);</div><div class="line"><span class="keyword">var</span> key = <span class="string">""</span>;</div><div class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; config.length; i++) &#123;</div><div class="line">    key += chars[<span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random()*chars.length)];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>这段代码是我为了生成随机的二维码的key写的，类似短网址，为了尽量缩短字符串长度，使用了62个字符。</p>
+<h2 id="5-Excel列名"><a href="#5-Excel列名" class="headerlink" title="5. Excel列名"></a>5. Excel列名</h2><p>Excel表格里面，列的名字是A~Z，但又不是简单的26进制，因为Z的下一个是AA，因此A既不是0也不是1。于是写了个函数，传入列的数字编号，得到Excel风格的列名。 传入0或负数不会出错。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 1 =&gt; A, 26 =&gt; Z, 27 = AA</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">excelColName</span>(<span class="params">n</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> c = <span class="string">''</span>;</div><div class="line">    <span class="keyword">do</span> &#123;</div><div class="line">        c = <span class="built_in">String</span>.fromCharCode(--n % <span class="number">26</span> + <span class="number">65</span>) + c;</div><div class="line">    &#125; <span class="keyword">while</span>(n = <span class="built_in">Math</span>.floor(n / <span class="number">26</span>) &gt; <span class="number">0</span>);</div><div class="line">    <span class="keyword">return</span> c;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/h5ai/" rel="next" title="h5ai 目录列表程序的搭建">
+                <i class="fa fa-chevron-left"></i> h5ai 目录列表程序的搭建
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/12/arukas-io/" rel="prev" title="Arukas.io——免费docker（开放注册）">
+                Arukas.io——免费docker（开放注册） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Übersicht
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Robin Chen" />
+          <p class="site-author-name" itemprop="name">Robin Chen</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-name">Artikel</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">Tags</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-百度网盘自定义分享密码"><span class="nav-number">1.</span> <span class="nav-text">1. 百度网盘自定义分享密码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-选中文件，点击分享。先不要点私密分享！"><span class="nav-number">1.0.1.</span> <span class="nav-text">1. 选中文件，点击分享。先不要点私密分享！</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Ctrl-Alt-I（或F12）打开浏览器的控制台，在Console页粘贴如下代码并回车。"><span class="nav-number">1.0.2.</span> <span class="nav-text">2. Ctrl+Alt+I（或F12）打开浏览器的控制台，在Console页粘贴如下代码并回车。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-点击私密分享，在弹出框中输入4个字符，中文占3个字符。"><span class="nav-number">1.0.3.</span> <span class="nav-text">3. 点击私密分享，在弹出框中输入4个字符，中文占3个字符。</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-使用多行字符串"><span class="nav-number">2.</span> <span class="nav-text">2. 使用多行字符串</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-获取中文日期和时间"><span class="nav-number">3.</span> <span class="nav-text">3. 获取中文日期和时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-生成随机字符串"><span class="nav-number">4.</span> <span class="nav-text">4. 生成随机字符串</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Excel列名"><span class="nav-number">5.</span> <span class="nav-text">5. Excel列名</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Robin Chen</span>
+</div>
+
+
+<div class="powered-by">
+  Erstellt mit  <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
