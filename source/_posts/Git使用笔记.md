@@ -68,5 +68,15 @@ git filter-branch --env-filter \
  fi'
 ```
 
+## github代理
+> 在中国当程序员真不容易，github都要翻墙上
+
+编辑`~/.ssh/config`,添加
+```
+Host github.com
+    ProxyCommand=nc -X 5 -x localhost:1080 %h %p
+```
+1080是你的socks5代理的端口。
+
 ## 参考文章
 https://blog.louie.lu/2017/06/01/%E5%85%A8%E9%9D%A2%E7%AB%84%E6%94%B9-git-commit-%E6%AD%B7%E5%8F%B2%E8%A8%98%E9%8C%84/
