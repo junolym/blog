@@ -1,31 +1,49 @@
 ---
-title: 几种VPN的一键安装脚本（Ubuntu VPS）
+title: 几种VPN的一键安装脚本
 tags: |-
 
   - VPS
 permalink: vpn-1key
 id: 50
-updated: '2016-08-01 16:44:13'
+updated: '2017-07-01 16:44:13'
 date: 2016-07-22 16:59:44
 ---
 
 搭建各种VPN的方法网络上已经有很多教程了，本文提供的是一键安装脚本，一是为了使用方便，二是稍有基础的同学直接阅读脚本便知步骤。或许这是程序员间最好的沟通方式。
 
 ## 一、Shadowsocks
+> 支持Ubuntu、Debian、CentOS  
+
 直接安装
 ```
-wget http://chenjx.cn/content/images/other/shadowsocks.sh; sudo sh shadowsocks.sh
+wget https://raw.githubusercontent.com/junolym/script/master/shadowsocks/sspy.sh && sudo bash sspy.sh
 ```
-<a class="btn btn-download" href="/content/images/other/shadowsocks.sh">下载</a>
+<a class="external" href="https://github.com/junolym/script/blob/master/shadowsocks/sspy.sh" target="_blank">Github</a>
 
-```bash line-numbers
+
+```bash
 #!/bin/sh
 if [ `id -u` -ne 0 ]; then
     echo "please run it as super user"
     exit 0
 fi
 
-apt-get -y install python-pip && pip install shadowsocks || {
+# set PKM (package manager)
+if grep -Eqi "CentOS" /etc/issue || grep -Eq "CentOS" /etc/*-release; then
+    PKM="yum"
+elif  grep -Eqi "Ubuntu" /etc/issue || grep -Eq "Ubuntu" /etc/*-release; then
+    PKM="apt-get"
+elif  grep -Eqi "Debian" /etc/issue || grep -Eq "Debian" /etc/*-release; then
+    PKM="apt-get"
+else
+    echo "This Script must be running at the CentOS or Ubuntu or Debian!"
+    exit 1
+fi
+
+echo "Installing pip with $PKM ..."
+
+$PKM update
+$PKM -y install python-pip && pip install shadowsocks || {
     echo "install shadowsocks failed"
     exit 1
 }
@@ -62,13 +80,15 @@ exit 0
 ```
 
 ## 二、PPTP
+> 仅限ubuntu
+
 直接安装：
 ```
-wget http://chenjx.cn/content/images/other/pptp.sh; sudo sh pptp.sh
+wget https://raw.githubusercontent.com/junolym/script/master/VPN/pptp.sh && sudo bash pptp.sh
 ```
-<a class="btn btn-download" href="/content/images/other/pptp.sh">下载</a>
+<a class="external" href="https://github.com/junolym/script/blob/master/VPN/pptp.sh" target="_blank">Github</a>
 
-```bash line-numbers
+```bash
 #!/bin/sh
 if [ `id -u` -ne 0 ]; then
     echo "please run it as super user"
@@ -79,7 +99,7 @@ apt-get -y install pptpd || {
     apt-get -y update
     apt-get -y install pptpd
 } || {
-    echo "install pptpd failed" 
+    echo "install pptpd failed"
     exit 1
 }
 
@@ -94,7 +114,7 @@ ms-dns 8.8.8.8
 ms-dns 8.8.4.4
 proxyarp
 lock
-nobsdcomp 
+nobsdcomp
 novj
 novjccomp
 nologfd
@@ -147,5 +167,5 @@ exit 0
 ```
 
 ## 三、IKEv2
-传送 --> 
+传送 -->
 <a class="external" href="https://github.com/quericy/one-key-ikev2-vpn">Github</a>
