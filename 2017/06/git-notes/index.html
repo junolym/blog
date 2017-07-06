@@ -357,7 +357,7 @@
 <p>git commit加上参数<code>--date</code>，并设置GIT_COMMITTER_DATE变量。传入时间支持Git internal format、RFC 2822、ISO 8601。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">MYDATE=`date --rfc-2822 --date=&quot;2 days ago&quot;`</div><div class="line">GIT_COMMITTER_DATE=$MYDATE git commit --amend --date &quot;$MYDATE&quot;</div></pre></td></tr></table></figure></p>
 <p>或者使用filter-branch<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">git filter-branch --env-filter \</div><div class="line"> &apos;if [ $GIT_COMMIT = 119f9ecf58069b265ab22f1f97d2b648faf932e0 ]</div><div class="line"> then</div><div class="line"> export GIT_AUTHOR_DATE=&quot;Fri Jan 2 21:38:53 2009 -0800&quot;</div><div class="line"> export GIT_COMMITTER_DATE=&quot;Sat May 19 01:01:01 2007 -0700&quot;</div><div class="line"> fi&apos;</div></pre></td></tr></table></figure></p>
 <h2 id="github代理"><a href="#github代理" class="headerlink" title="github代理"></a>github代理</h2><blockquote>
-<p>在中国当程序员真不容易，github都要翻墙上</p>
+<p>在中国当程序员真不容易，github被干扰得只有几十KB的速度</p>
 </blockquote>
 <p>编辑<code>~/.ssh/config</code>,添加<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Host github.com</div><div class="line">    ProxyCommand=nc -X 5 -x localhost:1080 %h %p</div></pre></td></tr></table></figure></p>
 <p>1080是你的socks5代理的端口。</p>
