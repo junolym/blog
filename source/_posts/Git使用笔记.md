@@ -69,7 +69,7 @@ git filter-branch --env-filter \
 ```
 
 ## github代理
-> 在中国当程序员真不容易，github都要翻墙上
+> 在中国当程序员真不容易，github被干扰得只有几十KB的速度
 
 编辑`~/.ssh/config`,添加
 ```
