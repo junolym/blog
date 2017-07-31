@@ -41,30 +41,30 @@ done
 ```
 
 ## 数组
-不需要声明，直接以数组方式赋值。几种赋值方式：
+### 不需要声明，直接以数组方式赋值。几种赋值方式：
 ```sh
 array=(var1 var2)
 array=([0]=var1 [1]=var2)
 array[0]=var1
 ```
-计算数组元素个数：
-`${#array[@]}` or `${#array[*]}`
+### 计算数组元素个数：（{和#中间没有空格）
+`${ #array[@]}` or `${ #array[*]}`
 
-引用数组：
+### 引用数组：
 `${array[@]}`
 
-遍历整个数组：
-```
+### 遍历整个数组：（{和#中间没有空格）
+```sh
 for var in ${array[@]}; do
     echo $var
 done
-for ((i = 0; i < ${#array[@]}; i++)); do
+for ((i = 0; i < ${# array[@]}; i++)); do
     echo ${array[$i]}
 done
 ```
 
 ## 死循环、sleep、递增
-```
+```sh
 COUNT=0
 while :
 do
