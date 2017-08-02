@@ -341,7 +341,11 @@
       
         
           
-            <h2 id="内建变量"><a href="#内建变量" class="headerlink" title="内建变量"></a>内建变量</h2><table>
+            <blockquote>
+<p>bash脚本是继js，python之后第三个我最常用的脚本。</p>
+</blockquote>
+<p><em>以下部分内容来自网络</em></p>
+<h2 id="内建变量"><a href="#内建变量" class="headerlink" title="内建变量"></a>内建变量</h2><table>
 <thead>
 <tr>
 <th>变量</th>
@@ -401,6 +405,7 @@
 <h3 id="引用数组："><a href="#引用数组：" class="headerlink" title="引用数组："></a>引用数组：</h3><p><code>${array[@]}</code></p>
 <h3 id="遍历整个数组：（-和-中间没有空格）"><a href="#遍历整个数组：（-和-中间没有空格）" class="headerlink" title="遍历整个数组：（{和#中间没有空格）"></a>遍历整个数组：（{和#中间没有空格）</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> var <span class="keyword">in</span> <span class="variable">$&#123;array[@]&#125;</span>; <span class="keyword">do</span></div><div class="line">    <span class="built_in">echo</span> <span class="variable">$var</span></div><div class="line"><span class="keyword">done</span></div><div class="line"><span class="keyword">for</span> ((i = 0; i &lt; <span class="variable">$&#123;# array[@]&#125;</span>; i++)); <span class="keyword">do</span></div><div class="line">    <span class="built_in">echo</span> <span class="variable">$&#123;array[$i]&#125;</span></div><div class="line"><span class="keyword">done</span></div></pre></td></tr></table></figure>
 <h2 id="死循环、sleep、递增"><a href="#死循环、sleep、递增" class="headerlink" title="死循环、sleep、递增"></a>死循环、sleep、递增</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">COUNT=0</div><div class="line"><span class="keyword">while</span> :</div><div class="line"><span class="keyword">do</span></div><div class="line">    <span class="built_in">echo</span> <span class="variable">$COUNT</span></div><div class="line">    COUNT=`expr <span class="variable">$COUNT</span> + 1`</div><div class="line">    sleep 1</div><div class="line"><span class="keyword">done</span></div></pre></td></tr></table></figure>
+<h2 id="逻辑"><a href="#逻辑" class="headerlink" title="逻辑"></a>逻辑</h2><p>支持<code>&amp;&amp;</code>，<code>||</code>, <code>!</code>, <code>()</code>。注意逻辑运算符和变量之间空格隔开。</p>
 <h2 id="比较"><a href="#比较" class="headerlink" title="比较"></a>比较</h2><h3 id="整数比较"><a href="#整数比较" class="headerlink" title="整数比较"></a>整数比较</h3><table>
 <thead>
 <tr>
@@ -543,6 +548,8 @@
 </tr>
 </tbody>
 </table>
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 函数定义</span></div><div class="line"><span class="function"><span class="title">test</span></span>() &#123;</div><div class="line">    <span class="built_in">echo</span> <span class="variable">$1</span></div><div class="line">    <span class="built_in">echo</span> <span class="variable">$2</span></div><div class="line">&#125;</div><div class="line"><span class="comment"># 函数调用</span></div><div class="line"><span class="built_in">test</span> 123 abc</div></pre></td></tr></table></figure>
+<h2 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h2><h3 id="等待子进程退出"><a href="#等待子进程退出" class="headerlink" title="等待子进程退出"></a>等待子进程退出</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> p <span class="keyword">in</span> $(<span class="built_in">jobs</span> -p); <span class="keyword">do</span></div><div class="line">    <span class="built_in">wait</span> <span class="variable">$p</span></div><div class="line"><span class="keyword">done</span></div></pre></td></tr></table></figure>
 
           
         

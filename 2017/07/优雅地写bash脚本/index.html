@@ -93,16 +93,16 @@
 
 
 
-<meta name="description" content="内建变量   变量 意义     $0 脚本文件名   $1/$2 第N(&amp;gt;1)个参数   $# 参数个数   $@ 所有参数(数组)   $* 所有参数(字符串)   $- 当前脚本执行时的附加参数，比如-x   $_ 最近的参数（或者当前脚本执行的目录）   $IFS 输入字段分隔符，一般是空格   $! 最近的后台执行的命令   $$ 当前脚本的pid   $? 脚本执行后的返回值">
+<meta name="description" content="bash脚本是继js，python之后第三个我最常用的脚本。  以下部分内容来自网络 内建变量   变量 意义     $0 脚本文件名   $1/$2 第N(&amp;gt;1)个参数   $# 参数个数   $@ 所有参数(数组)   $* 所有参数(字符串)   $- 当前脚本执行时的附加参数，比如-x   $_ 最近的参数（或者当前脚本执行的目录）   $IFS 输入字段分隔符，一般是空格">
 <meta property="og:type" content="article">
 <meta property="og:title" content="优雅地写bash脚本">
 <meta property="og:url" content="https://chenjx.cn/2017/07/优雅地写bash脚本/index.html">
 <meta property="og:site_name" content="爱生活，爱的的">
-<meta property="og:description" content="内建变量   变量 意义     $0 脚本文件名   $1/$2 第N(&amp;gt;1)个参数   $# 参数个数   $@ 所有参数(数组)   $* 所有参数(字符串)   $- 当前脚本执行时的附加参数，比如-x   $_ 最近的参数（或者当前脚本执行的目录）   $IFS 输入字段分隔符，一般是空格   $! 最近的后台执行的命令   $$ 当前脚本的pid   $? 脚本执行后的返回值">
-<meta property="og:updated_time" content="2017-07-31T14:39:17.680Z">
+<meta property="og:description" content="bash脚本是继js，python之后第三个我最常用的脚本。  以下部分内容来自网络 内建变量   变量 意义     $0 脚本文件名   $1/$2 第N(&amp;gt;1)个参数   $# 参数个数   $@ 所有参数(数组)   $* 所有参数(字符串)   $- 当前脚本执行时的附加参数，比如-x   $_ 最近的参数（或者当前脚本执行的目录）   $IFS 输入字段分隔符，一般是空格">
+<meta property="og:updated_time" content="2017-08-02T09:58:46.130Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="优雅地写bash脚本">
-<meta name="twitter:description" content="内建变量   变量 意义     $0 脚本文件名   $1/$2 第N(&amp;gt;1)个参数   $# 参数个数   $@ 所有参数(数组)   $* 所有参数(字符串)   $- 当前脚本执行时的附加参数，比如-x   $_ 最近的参数（或者当前脚本执行的目录）   $IFS 输入字段分隔符，一般是空格   $! 最近的后台执行的命令   $$ 当前脚本的pid   $? 脚本执行后的返回值">
+<meta name="twitter:description" content="bash脚本是继js，python之后第三个我最常用的脚本。  以下部分内容来自网络 内建变量   变量 意义     $0 脚本文件名   $1/$2 第N(&amp;gt;1)个参数   $# 参数个数   $@ 所有参数(数组)   $* 所有参数(字符串)   $- 当前脚本执行时的附加参数，比如-x   $_ 最近的参数（或者当前脚本执行的目录）   $IFS 输入字段分隔符，一般是空格">
 
 
 
@@ -339,7 +339,11 @@
       
 
       
-        <h2 id="内建变量"><a href="#内建变量" class="headerlink" title="内建变量"></a>内建变量</h2><table>
+        <blockquote>
+<p>bash脚本是继js，python之后第三个我最常用的脚本。</p>
+</blockquote>
+<p><em>以下部分内容来自网络</em></p>
+<h2 id="内建变量"><a href="#内建变量" class="headerlink" title="内建变量"></a>内建变量</h2><table>
 <thead>
 <tr>
 <th>变量</th>
@@ -399,6 +403,7 @@
 <h3 id="引用数组："><a href="#引用数组：" class="headerlink" title="引用数组："></a>引用数组：</h3><p><code>${array[@]}</code></p>
 <h3 id="遍历整个数组：（-和-中间没有空格）"><a href="#遍历整个数组：（-和-中间没有空格）" class="headerlink" title="遍历整个数组：（{和#中间没有空格）"></a>遍历整个数组：（{和#中间没有空格）</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> var <span class="keyword">in</span> <span class="variable">$&#123;array[@]&#125;</span>; <span class="keyword">do</span></div><div class="line">    <span class="built_in">echo</span> <span class="variable">$var</span></div><div class="line"><span class="keyword">done</span></div><div class="line"><span class="keyword">for</span> ((i = 0; i &lt; <span class="variable">$&#123;# array[@]&#125;</span>; i++)); <span class="keyword">do</span></div><div class="line">    <span class="built_in">echo</span> <span class="variable">$&#123;array[$i]&#125;</span></div><div class="line"><span class="keyword">done</span></div></pre></td></tr></table></figure>
 <h2 id="死循环、sleep、递增"><a href="#死循环、sleep、递增" class="headerlink" title="死循环、sleep、递增"></a>死循环、sleep、递增</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">COUNT=0</div><div class="line"><span class="keyword">while</span> :</div><div class="line"><span class="keyword">do</span></div><div class="line">    <span class="built_in">echo</span> <span class="variable">$COUNT</span></div><div class="line">    COUNT=`expr <span class="variable">$COUNT</span> + 1`</div><div class="line">    sleep 1</div><div class="line"><span class="keyword">done</span></div></pre></td></tr></table></figure>
+<h2 id="逻辑"><a href="#逻辑" class="headerlink" title="逻辑"></a>逻辑</h2><p>支持<code>&amp;&amp;</code>，<code>||</code>, <code>!</code>, <code>()</code>。注意逻辑运算符和变量之间空格隔开。</p>
 <h2 id="比较"><a href="#比较" class="headerlink" title="比较"></a>比较</h2><h3 id="整数比较"><a href="#整数比较" class="headerlink" title="整数比较"></a>整数比较</h3><table>
 <thead>
 <tr>
@@ -541,6 +546,8 @@
 </tr>
 </tbody>
 </table>
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 函数定义</span></div><div class="line"><span class="function"><span class="title">test</span></span>() &#123;</div><div class="line">    <span class="built_in">echo</span> <span class="variable">$1</span></div><div class="line">    <span class="built_in">echo</span> <span class="variable">$2</span></div><div class="line">&#125;</div><div class="line"><span class="comment"># 函数调用</span></div><div class="line"><span class="built_in">test</span> 123 abc</div></pre></td></tr></table></figure>
+<h2 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h2><h3 id="等待子进程退出"><a href="#等待子进程退出" class="headerlink" title="等待子进程退出"></a>等待子进程退出</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> p <span class="keyword">in</span> $(<span class="built_in">jobs</span> -p); <span class="keyword">do</span></div><div class="line">    <span class="built_in">wait</span> <span class="variable">$p</span></div><div class="line"><span class="keyword">done</span></div></pre></td></tr></table></figure>
 
       
     </div>
@@ -705,7 +712,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#内建变量"><span class="nav-number">1.</span> <span class="nav-text">内建变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#传参"><span class="nav-number">2.</span> <span class="nav-text">传参</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组"><span class="nav-number">3.</span> <span class="nav-text">数组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#不需要声明，直接以数组方式赋值。几种赋值方式："><span class="nav-number">3.1.</span> <span class="nav-text">不需要声明，直接以数组方式赋值。几种赋值方式：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#计算数组元素个数：（-和-中间没有空格）"><span class="nav-number">3.2.</span> <span class="nav-text">计算数组元素个数：（{和#中间没有空格）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引用数组："><span class="nav-number">3.3.</span> <span class="nav-text">引用数组：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#遍历整个数组：（-和-中间没有空格）"><span class="nav-number">3.4.</span> <span class="nav-text">遍历整个数组：（{和#中间没有空格）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#死循环、sleep、递增"><span class="nav-number">4.</span> <span class="nav-text">死循环、sleep、递增</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#比较"><span class="nav-number">5.</span> <span class="nav-text">比较</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#整数比较"><span class="nav-number">5.1.</span> <span class="nav-text">整数比较</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串比较"><span class="nav-number">5.2.</span> <span class="nav-text">字符串比较</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件比较"><span class="nav-number">5.3.</span> <span class="nav-text">文件比较</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#内建变量"><span class="nav-number">1.</span> <span class="nav-text">内建变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#传参"><span class="nav-number">2.</span> <span class="nav-text">传参</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组"><span class="nav-number">3.</span> <span class="nav-text">数组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#不需要声明，直接以数组方式赋值。几种赋值方式："><span class="nav-number">3.1.</span> <span class="nav-text">不需要声明，直接以数组方式赋值。几种赋值方式：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#计算数组元素个数：（-和-中间没有空格）"><span class="nav-number">3.2.</span> <span class="nav-text">计算数组元素个数：（{和#中间没有空格）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引用数组："><span class="nav-number">3.3.</span> <span class="nav-text">引用数组：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#遍历整个数组：（-和-中间没有空格）"><span class="nav-number">3.4.</span> <span class="nav-text">遍历整个数组：（{和#中间没有空格）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#死循环、sleep、递增"><span class="nav-number">4.</span> <span class="nav-text">死循环、sleep、递增</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑"><span class="nav-number">5.</span> <span class="nav-text">逻辑</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#比较"><span class="nav-number">6.</span> <span class="nav-text">比较</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#整数比较"><span class="nav-number">6.1.</span> <span class="nav-text">整数比较</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串比较"><span class="nav-number">6.2.</span> <span class="nav-text">字符串比较</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件比较"><span class="nav-number">6.3.</span> <span class="nav-text">文件比较</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数"><span class="nav-number">7.</span> <span class="nav-text">函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程"><span class="nav-number">8.</span> <span class="nav-text">进程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#等待子进程退出"><span class="nav-number">8.1.</span> <span class="nav-text">等待子进程退出</span></a></li></ol></li></ol></div>
             
 
           </div>
