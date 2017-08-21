@@ -273,6 +273,392 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://chenjx.cn/2017/08/ES6-之-class/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Robin Chen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="爱生活，爱的的">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/ES6-之-class/" itemprop="url">ES6 之 class</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-21T20:40:40+08:00">
+                2017-08-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>class是ES6新增的关键字，迟来的类啊。在此之前，我们是这样定义和使用“类”的</p>
+<h2 id="定义类"><a href="#定义类" class="headerlink" title="定义类"></a>定义类</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Point</span>(<span class="params">x, y</span>) </span>&#123;</div><div class="line">  <span class="keyword">this</span>.x = x;</div><div class="line">  <span class="keyword">this</span>.y = y;</div><div class="line">&#125;</div><div class="line">Point.prototype.print = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">"(%d, %d)"</span>, <span class="keyword">this</span>.x, <span class="keyword">this</span>.y);</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">var</span> p = <span class="keyword">new</span> Point(<span class="number">1</span>, <span class="number">2</span>);</div><div class="line">p.print();</div></pre></td></tr></table></figure>
+<p>无力吐槽，语义真的差。用了ES6的class，就可以下面这样子<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Point</span> </span>&#123;</div><div class="line">  <span class="keyword">constructor</span>(x, y) &#123;</div><div class="line">    <span class="keyword">this</span>.x = x;</div><div class="line">    <span class="keyword">this</span>.y = y;</div><div class="line">  &#125;</div><div class="line">  print() &#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"(%d, %d)"</span>, <span class="keyword">this</span>.x, <span class="keyword">this</span>.y);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> p = <span class="keyword">new</span> Point(<span class="number">1</span>, <span class="number">2</span>);</div><div class="line">p.print();</div></pre></td></tr></table></figure></p>
+<p>记几点简单的使用注意：</p>
+<ol>
+<li>不存在变量提升，即必须先声明，再使用。</li>
+<li><code>constructor</code>如没有显式定义，则表示空的<code>constructor</code>。</li>
+<li>支持表达式的形式，如<code>const Foo = class { /* ... */ }</code></li>
+<li>无私有方法/属性，有静态方法（用<code>static</code>修饰），无静态属性（可在类外直接赋值实现）</li>
+<li>支持取值（getter）和存值（setter）方法，分别使用<code>get</code>和<code>set</code>修饰（栗子1）</li>
+<li>类的所有实例共享一个原型对象，即<code>__proto__</code>相同。</li>
+<li><code>name</code>属性：类的名字，尤其注意当使用表达式形式时，name优先使用<code>class</code>关键字后面的名字。（栗子2）</li>
+<li>如果某个方法之前加上星号<code>*</code>，就表示该方法是一个 <code>Generator</code> 函数。（栗子3）</li>
+<li><code>new.target</code>属性：表示构造函数被调用的方法。（栗子4）</li>
+</ol>
+<h2 id="类的继承"><a href="#类的继承" class="headerlink" title="类的继承"></a>类的继承</h2><p><code>extends</code>关键字。下面这段代码继承了<code>Array</code>创造一个<code>Pool</code>类，并增加一个<code>next</code>方法用于遍历这个pool，每次调用返回一个值。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Pool</span> <span class="keyword">extends</span> <span class="title">Array</span> </span>&#123;</div><div class="line">    <span class="keyword">constructor</span>(...values) &#123;</div><div class="line">        <span class="keyword">super</span>(...values);</div><div class="line">        <span class="keyword">this</span>.cursor = <span class="number">0</span>;</div><div class="line">    &#125;</div><div class="line">    next() &#123;</div><div class="line">        <span class="keyword">let</span> value = <span class="keyword">this</span>[<span class="keyword">this</span>.cursor++];</div><div class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.cursor &gt;= <span class="keyword">this</span>.length) &#123;</div><div class="line">            <span class="keyword">this</span>.cursor = <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> value;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">const</span> pool = <span class="keyword">new</span> Pool(<span class="number">1</span>, <span class="number">2</span>); <span class="comment">// 类似Array的构造函数</span></div><div class="line">pool.push(<span class="number">3</span>); <span class="comment">// 使用Array的方法</span></div><div class="line">pool.next(); <span class="comment">// 1</span></div><div class="line">pool.next(); <span class="comment">// 2</span></div><div class="line">pool.next(); <span class="comment">// 3</span></div><div class="line">pool.next(); <span class="comment">// 1</span></div><div class="line">pool <span class="comment">// Pool [ 1, 2, 3, cursor: 0 ]</span></div></pre></td></tr></table></figure></p>
+<p>几个细节：</p>
+<ol>
+<li><code>super</code>可表示父类的构造函数。注意必须调用<code>super</code>之后才可以使用<code>this</code>。</li>
+<li><code>super</code>还可作为对象。在普通方法中，指向父类的原型对象；在静态方法中，指向父类。</li>
+<li>通过<code>super</code>调用父类的方法时，<code>super</code>会绑定子类的<code>this</code>。</li>
+</ol>
+<hr>
+<p>栗子1： getter 和 setter<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> </span>&#123;</div><div class="line">    <span class="keyword">constructor</span>(v) &#123;</div><div class="line">        <span class="keyword">this</span>.value = v;</div><div class="line">    &#125;;</div><div class="line">    get bar() &#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="string">'got value:'</span>, <span class="keyword">this</span>.value);</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.value;</div><div class="line">    &#125;;</div><div class="line">    set bar(v) &#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="string">'before set:'</span>, <span class="keyword">this</span>.value);</div><div class="line">        <span class="keyword">this</span>.value = v;</div><div class="line">        <span class="built_in">console</span>.log(<span class="string">'after set:'</span>, <span class="keyword">this</span>.value);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">const</span> foo = <span class="keyword">new</span> Foo(<span class="number">0</span>);</div><div class="line">foo.bar += <span class="number">1</span>;</div><div class="line"><span class="comment">/*</span></div><div class="line">got value: 0</div><div class="line">before set: 0</div><div class="line">after set: 1</div><div class="line">*/</div></pre></td></tr></table></figure></p>
+<p>栗子2： <code>name</code>属性<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> </span>&#123;&#125;</div><div class="line"><span class="keyword">let</span> foo = <span class="keyword">new</span> Foo();</div><div class="line"><span class="built_in">console</span>.log(Foo.name); <span class="comment">// Foo</span></div><div class="line"><span class="built_in">console</span>.log(foo.constructor.name); <span class="comment">// Foo</span></div><div class="line"><span class="keyword">const</span> Bar1 = <span class="class"><span class="keyword">class</span> </span>&#123;&#125;;</div><div class="line"><span class="keyword">const</span> Bar2 = <span class="class"><span class="keyword">class</span> <span class="title">T</span> </span>&#123;&#125;;</div><div class="line"><span class="built_in">console</span>.log(Bar1.name); <span class="comment">// Bar1</span></div><div class="line"><span class="built_in">console</span>.log(Bar2.name); <span class="comment">// T</span></div></pre></td></tr></table></figure></p>
+<p>栗子3： 生成器函数，<code>Symbol.iterator</code>方法<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> </span>&#123;</div><div class="line">  <span class="keyword">constructor</span>(...args) &#123;</div><div class="line">    <span class="keyword">this</span>.args = args;</div><div class="line">  &#125;</div><div class="line">  * [<span class="built_in">Symbol</span>.iterator]() &#123;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> arg <span class="keyword">of</span> <span class="keyword">this</span>.args) &#123;</div><div class="line">      <span class="keyword">yield</span> arg;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">const</span> foo = <span class="keyword">new</span> Foo(<span class="string">'hello'</span>, <span class="string">'world'</span>);</div><div class="line"><span class="keyword">for</span> (<span class="keyword">let</span> x <span class="keyword">of</span> foo) &#123;</div><div class="line">  <span class="built_in">console</span>.log(x);</div><div class="line">&#125;</div><div class="line"><span class="comment">// hello</span></div><div class="line"><span class="comment">// world</span></div></pre></td></tr></table></figure></p>
+<p>栗子4：利用<code>new.target</code>实现抽象类<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Shape</span> </span>&#123;</div><div class="line">  <span class="keyword">constructor</span>() &#123;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">new</span>.target === Shape) &#123;</div><div class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'本类不能实例化'</span>);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Rectangle</span> <span class="keyword">extends</span> <span class="title">Shape</span> </span>&#123;</div><div class="line">  <span class="keyword">constructor</span>(length, width) &#123;</div><div class="line">    <span class="keyword">super</span>();</div><div class="line">    <span class="comment">// ...</span></div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> x = <span class="keyword">new</span> Shape();  <span class="comment">// 报错</span></div><div class="line"><span class="keyword">let</span> y = <span class="keyword">new</span> Rectangle(<span class="number">3</span>, <span class="number">4</span>);  <span class="comment">// 正确</span></div></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://chenjx.cn/2017/08/ES6-之-let/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Robin Chen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="爱生活，爱的的">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/ES6-之-let/" itemprop="url">ES6 之 let</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-20T17:59:17+08:00">
+                2017-08-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="块级作用域"><a href="#块级作用域" class="headerlink" title="块级作用域"></a>块级作用域</h2><p>在let和const出现之前，var声明的变量的作用域是函数体。<br>先来一段ES5代码，每隔一秒钟打印一个数字（1-5）。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">1</span>; i &lt;= <span class="number">5</span>; i++) &#123;</div><div class="line">    setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(i);</div><div class="line">    &#125;, i * <span class="number">1000</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>执行上述代码，如愿以偿地看到每秒出一个数字，但是打印的都是6。<br>原因是在timeout回调函数里面调用的i，是外面的i的指针，而其值在循环结束时是6，因此回调函数读到的是6。<br>在ES6以前，解决上述问题的方案叫做IIFE（立即执行函数表达式），如下<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">1</span>; i &lt;= <span class="number">5</span>; i++) &#123;</div><div class="line">    (<span class="function"><span class="keyword">function</span>(<span class="params">i</span>) </span>&#123;</div><div class="line">        setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">            <span class="built_in">console</span>.log(i)</div><div class="line">        &#125;, i * <span class="number">1000</span>);</div><div class="line">    &#125;)(i);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>而ES6的解决方案是，使用let声明i，使得i的作用域在for这个代码块，那么传到timeout回调函数的是i的值而不是其指针。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i &lt;= <span class="number">5</span>; i++) &#123;</div><div class="line">    setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(i)</div><div class="line">    &#125;, i * <span class="number">1000</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="不存在变量提升"><a href="#不存在变量提升" class="headerlink" title="不存在变量提升"></a>不存在变量提升</h2><p>var的变量提升：a在后面的语句声明，但其实a的作用域提升到整个函数体，只是在赋值语句之前a的值是1。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">console</span>.log(a); <span class="comment">// undefined</span></div><div class="line"><span class="keyword">var</span> a = <span class="number">1</span>;</div></pre></td></tr></table></figure></p>
+<p>let不存在变量提升，以下代码报错。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">console</span>.log(a); <span class="comment">// ReferenceError: a is not defined</span></div><div class="line"><span class="keyword">let</span> a = <span class="number">1</span>;</div></pre></td></tr></table></figure></p>
+<h2 id="死区"><a href="#死区" class="headerlink" title="死区"></a>死区</h2><p>一旦某个变量在代码块中用let声明，那么在这个代码块里面，let语句之前，就是这个变量的死区。访问会出错，哪怕是typeof也不安全。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span>(b)); <span class="comment">// undefined</span></div><div class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span>(a)); <span class="comment">// ReferenceError: a is not defined</span></div><div class="line"><span class="keyword">let</span> a = <span class="number">1</span>;</div></pre></td></tr></table></figure></p>
+<p>以上代码，b从头到尾没有声明，不存在死区，typeof没报错。而typeof(a)则报错了。</p>
+<h2 id="全局变量和顶层对象属性脱钩"><a href="#全局变量和顶层对象属性脱钩" class="headerlink" title="全局变量和顶层对象属性脱钩"></a>全局变量和顶层对象属性脱钩</h2><p>顶层对象，在浏览器中是<code>window</code>，在node里是<code>global</code>。以往的全局变量就是顶层对象的一个属性。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 浏览器中</span></div><div class="line"><span class="keyword">var</span> a = <span class="number">1</span>;</div><div class="line"><span class="built_in">console</span>.log(<span class="built_in">window</span>.a); <span class="comment">// 1</span></div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>顶层对象的属性与全局变量挂钩…带来了几个很大的问题，首先是没法在编译时就报出变量未声明的错误，只有运行时才能知道…；其次，程序员很容易不知不觉地就创建了全局变量…；最后，顶层对象的属性是到处可以读写的，这非常不利于模块化编程。另一方面，…顶层对象是一个有实体含义的对象。<br>—— 阮一峰《ES6标准入门》</p>
+</blockquote>
+<p>好了，ES6规定，全局变量和顶层对象脱钩了。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> a = <span class="number">1</span>;</div><div class="line"><span class="built_in">console</span>.log(<span class="built_in">window</span>.a); <span class="comment">// undefined</span></div></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://chenjx.cn/2017/08/Ubuntu安装TIM（QQ）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Robin Chen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="爱生活，爱的的">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/Ubuntu安装TIM（QQ）/" itemprop="url">Ubuntu安装TIM（QQ）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-07T11:24:43+08:00">
+                2017-08-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>ubuntu上使用qq的方法有很多，可以用wine或者crossover安装，qq版本又分普通版、轻聊版、国际版、TIM。本文介绍的方法是目前我尝试过的最接近完美的方案——crossover安装TIM</p>
+</blockquote>
+<h2 id="1-安装crossover"><a href="#1-安装crossover" class="headerlink" title="1. 安装crossover"></a>1. 安装crossover</h2><p>下载crossover安装包，<a href="https://www.codeweavers.com/products/crossover-linux/download" target="_blank">下载地址</a> 目前最新版本为crossover_16.2.5-1。<br>双击deb文件可以调用“软件管理器”安装。 命令行安装则是<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo dpkg -i crossover_16.2.5-1.deb</div></pre></td></tr></table></figure></p>
+<h2 id="2-crossover中安装TIM"><a href="#2-crossover中安装TIM" class="headerlink" title="2. crossover中安装TIM"></a>2. crossover中安装TIM</h2><p>这里建议使用TIM 1.2.0公测版，已测试可用。<a href="http://dldir1.qq.com/qqfile/qq/TIM1.2.0/19861/TIM1.2.0Trial.exe" target="_blank">下载地址</a><br>双击exe文件，调用crossover安装器打开。如果没有文件关联，就手动打开crossover，添加容器再安装应用。<br><img src="/content/images/2017/08/2017-08-07-10-57-14----.png" alt=""></p>
+<p>安装完毕先不要登录，退出以完成剩下的创建图标等步骤。</p>
+<h2 id="3-设置TIM"><a href="#3-设置TIM" class="headerlink" title="3. 设置TIM"></a>3. 设置TIM</h2><p>已知的问题：</p>
+<ol>
+<li>不能记住密码&amp;自动登录，尚无解决方案。  </li>
+<li>双击打开的大图可能无显示，需要滚动一下鼠标滑轮。</li>
+</ol>
+<p>建议设置 “接收文件保存目录”<br><img src="/content/images/2017/08/2017-08-07-11-01-53----.png" alt=""></p>
+<p>在下载文件之后不要点击打开目录，使用ubuntu的文件管理器打开你设置的目录。</p>
+<h2 id="4-激活crossover"><a href="#4-激活crossover" class="headerlink" title="4. 激活crossover"></a>4. 激活crossover</h2><p>试用版有14天的试用期。建议试用满意再购买，购买可先搜索优惠码。<br>如想长期试用，下载<a href="https://web.chenjx.cn/crossover/winewrapper.exe.so" target="_blank">winewrapper.exe.so</a>，替换<code>/opt/cxoffice/lib/wine/</code>下的同名文件。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://chenjx.cn/2017/07/优雅地写bash脚本/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1346,365 +1732,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://chenjx.cn/2017/02/try-windows-server/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Robin Chen">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="爱生活，爱的的">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/02/try-windows-server/" itemprop="url">初尝Windows Server</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-21T12:20:02+08:00">
-                2017-02-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>以前一直觉得Linux才够Server，最近给朋友搞个云主机跑网站，不熟悉Linux的，就开了个win。然后呢，还行吧，图形界面的远程控制比想象中的好，毕竟win自家的rdp，支持UDP，压缩一下画质就可以达到流畅操作。</p>
-<p>这里记录一下玩windows server的点点吧。先发了，再慢慢更新。</p>
-<h2 id="远程控制篇"><a href="#远程控制篇" class="headerlink" title="远程控制篇"></a>远程控制篇</h2><p>Windows Server的远程控制很简单，这里不讨论云主机提供的VNC之类的控制，指的是通过windows的Remote Desktop Protocol来控制。废话少说，以下按客户端平台分别说明。</p>
-<h3 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h3><p>使用的软件是windows自带的“远程桌面连接”，搜索“mstsc”、“远程桌面连接”或者“rdp”都可以找到。<br><img src="/content/images/2017/02/--.PNG" alt=""><br>“计算机”填入主机域名或ip地址。<br>为方便远程控制的同时传文件，需要开启磁盘映射。（将本地的一个磁盘映射到云主机，可以在两个主机同时操作里面的文件。）点击“显示选项”-&gt;“本地资源”-&gt;“本地设备与资源/详细信息”，勾选要映射的驱动器，确定。<br>在“体验”选项卡，可以根据自己的带宽和云主机的公网带宽选择适合的传输模式，平衡传输质量和速度。推荐取消“视觉样式”，勾选“字体平滑”。<br>如果需要记住密码，勾选“允许我保存凭据”。  </p>
-<h3 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h3><p>推荐使用软件Remmina，使用简单，功能齐全，而且是开源软件。项目主页：<a href="https://www.remmina.org。" target="_blank" rel="external">https://www.remmina.org。</a><br><img src="/content/images/2017/02/----20170222154703.png" alt=""><br>基本信息只需要服务器、用户名、密码，域留空。<br>同样推荐添加共享目录以便文件传输。</p>
-<h3 id="Others"><a href="#Others" class="headerlink" title="Others"></a>Others</h3><p>OS X，iOS，安卓都有很多类似软件，但是特别好的一个没发现。<br>其中微软出的一个叫“Microsoft Remote Desktop”，商店搜就行。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://chenjx.cn/2016/12/https-sni/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Robin Chen">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="爱生活，爱的的">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/12/https-sni/" itemprop="url">HTTPS加密的疏漏——SNI扩展字段</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-12-20T08:41:10+08:00">
-                2016-12-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="SNI是什么？"><a href="#SNI是什么？" class="headerlink" title="SNI是什么？"></a>SNI是什么？</h2><p><a class="external" href="https://zh.wikipedia.org/wiki/%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%90%8D%E7%A7%B0%E6%8C%87%E7%A4%BA" target="_blank" rel="external">维基百科（服务器名称指示）</a></p>
-<p><strong>服务器名称指示</strong>（Server Name Indication 简称 SNI）是一个扩展的TLS计算机联网协议，这允许在握手过程开始时通过客户端告诉它正在连接的服务器的主机名称。</p>
-<p><strong>作用</strong>：允许在相同的IP地址和TCP端口号的服务器上使用多个证书，而不必所有网站都使用同一个证书。在概念上等同于HTTP/1.1基于域名的虚拟主机，只不过这是在HTTPS上实现的。</p>
-<h2 id="SNI信息的传输是明文的？"><a href="#SNI信息的传输是明文的？" class="headerlink" title="SNI信息的传输是明文的？"></a>SNI信息的传输是明文的？</h2><p>SNI信息是在握手的过程中，确切说是在客户端发送给服务端的第一个握手包中传递的信息。<br>这时候SSL连接还未建立起来，因此SNI信息是明文传输的。</p>
-<p>如下图所示，SNI信息即在第一个SSL握手包中（Client Hello）<br><img src="/content/images/2016/12/1.PNG" alt=""></p>
-<p>具体的SNI信息如下，显然是明文的：<br><img src="/content/images/2016/12/2.PNG" alt=""></p>
-<h2 id="明文的SNI会带来什么后果？"><a href="#明文的SNI会带来什么后果？" class="headerlink" title="明文的SNI会带来什么后果？"></a>明文的SNI会带来什么后果？</h2><p>SNI是明文的，而且是不可能被加密的，因为秘钥还没协商好呢。<br>实际会带来的后果并不涉及安全问题，仅仅只是所请求的服务器泄露出去了，连接可能受到干扰。<br>如果网络防火墙的包过滤系统检查SNI信息的话，就可以屏蔽某些域名的https访问，就像屏蔽http一样简单。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://chenjx.cn/2016/12/arukas-io/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Robin Chen">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="爱生活，爱的的">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/12/arukas-io/" itemprop="url">Arukas.io——免费docker（开放注册）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-12-05T12:32:57+08:00">
-                2016-12-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><a href="https://arukas.io/" target="_blank" rel="external">Arukas</a>是一个正在开放公测的容器宿主商，目前完全免费，据称将来也会保留免费的plan。</p>
-<p>免费注册，注册验证需等24小时。</p>
-<p>教程就不细说了，网上一大堆。比如： <a href="http://51.ruyo.net/p/2058.html" target="_blank" rel="external">http://51.ruyo.net/p/2058.html</a></p>
-<p>可以做什么？  </p>
-<ol>
-<li>搭建各种容器</li>
-<li>VPS搭建练手（重启会恢复默认，所以只是练手）</li>
-</ol>
-<p>目前服务的限制比较多，共用ip、NAT端口随机分配，所以只能用来练技术。</p>
-<p>秀秀自己的<br><img src="/content/images/2016/12/----20161205201440.png" alt=""></p>
-<p>服务器IP和端口会不定期更新怎么办？</p>
-<p>用nodejs写个小爬虫就可以解决了，登陆拿cookie，然后抓数据再格式化一下。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> superagent = <span class="built_in">require</span>(<span class="string">'superagent'</span>);</div><div class="line"></div><div class="line"><span class="built_in">require</span>(<span class="string">'http'</span>).createServer(<span class="function"><span class="keyword">function</span>(<span class="params">req, res</span>) </span>&#123;</div><div class="line">    superagent.post(<span class="string">"https://app.arukas.io/api/login"</span>)</div><div class="line">    .send(&#123;<span class="attr">email</span>: <span class="string">"yourmail@gmail.com"</span>, <span class="attr">password</span>: <span class="string">"yourArukasPassword"</span>&#125;)</div><div class="line">    .end(<span class="function">(<span class="params">err, sres</span>) =&gt;</span> &#123;</div><div class="line">        <span class="keyword">var</span> cookie = sres.header[<span class="string">'set-cookie'</span>];</div><div class="line">        superagent.get(<span class="string">"https://app.arukas.io/api/containers"</span>)</div><div class="line">        .set(<span class="string">"Cookie"</span>, cookie)</div><div class="line">        .end(<span class="function">(<span class="params">err, sres</span>) =&gt;</span> &#123;</div><div class="line">            <span class="keyword">var</span> t = sres.text;</div><div class="line">            <span class="keyword">var</span> i = t.indexOf(<span class="string">'"container_port":1234'</span>);</div><div class="line">            <span class="keyword">var</span> port = t.slice(i+<span class="number">37</span>, i+<span class="number">42</span>);</div><div class="line">            <span class="keyword">var</span> ip = t.slice(i+<span class="number">57</span>, t.indexOf(<span class="string">".jp"</span>, i+<span class="number">57</span>)).replace(<span class="regexp">/-/g</span>, <span class="string">'.'</span>);</div><div class="line">            res.write(<span class="string">"ip :  "</span> + ip + <span class="string">"\n"</span>);</div><div class="line">            res.write(<span class="string">"port: "</span> + port + <span class="string">"\n"</span>);</div><div class="line">            res.write(<span class="string">"pass: 1024\n"</span>);</div><div class="line">            res.end(<span class="string">"crypto: aes-256-cfb\n"</span>);</div><div class="line">        &#125;);</div><div class="line">    &#125;);</div><div class="line">&#125;).listen(<span class="number">1080</span>);</div></pre></td></tr></table></figure></p>
-<div style="display:none"><br><br>以上程序只是粗略版的，可以加上base64编码的url和二维码。<br><br>然后就如下图了<br><img src="/content/images/2016/12/----20161212024002.png" alt=""><br><br>好吧，东西在这里 –&gt; <a href="https://sharess.arukascloud.io/" target="_blank" rel="external">https://sharess.arukascloud.io/</a><br><br></div>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1754,7 +1781,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">36</span>
+                <span class="site-state-item-count">39</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

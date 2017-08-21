@@ -273,6 +273,365 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://chenjx.cn/2017/02/try-windows-server/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Robin Chen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="爱生活，爱的的">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/02/try-windows-server/" itemprop="url">初尝Windows Server</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-21T12:20:02+08:00">
+                2017-02-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>以前一直觉得Linux才够Server，最近给朋友搞个云主机跑网站，不熟悉Linux的，就开了个win。然后呢，还行吧，图形界面的远程控制比想象中的好，毕竟win自家的rdp，支持UDP，压缩一下画质就可以达到流畅操作。</p>
+<p>这里记录一下玩windows server的点点吧。先发了，再慢慢更新。</p>
+<h2 id="远程控制篇"><a href="#远程控制篇" class="headerlink" title="远程控制篇"></a>远程控制篇</h2><p>Windows Server的远程控制很简单，这里不讨论云主机提供的VNC之类的控制，指的是通过windows的Remote Desktop Protocol来控制。废话少说，以下按客户端平台分别说明。</p>
+<h3 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h3><p>使用的软件是windows自带的“远程桌面连接”，搜索“mstsc”、“远程桌面连接”或者“rdp”都可以找到。<br><img src="/content/images/2017/02/--.PNG" alt=""><br>“计算机”填入主机域名或ip地址。<br>为方便远程控制的同时传文件，需要开启磁盘映射。（将本地的一个磁盘映射到云主机，可以在两个主机同时操作里面的文件。）点击“显示选项”-&gt;“本地资源”-&gt;“本地设备与资源/详细信息”，勾选要映射的驱动器，确定。<br>在“体验”选项卡，可以根据自己的带宽和云主机的公网带宽选择适合的传输模式，平衡传输质量和速度。推荐取消“视觉样式”，勾选“字体平滑”。<br>如果需要记住密码，勾选“允许我保存凭据”。  </p>
+<h3 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h3><p>推荐使用软件Remmina，使用简单，功能齐全，而且是开源软件。项目主页：<a href="https://www.remmina.org。" target="_blank" rel="external">https://www.remmina.org。</a><br><img src="/content/images/2017/02/----20170222154703.png" alt=""><br>基本信息只需要服务器、用户名、密码，域留空。<br>同样推荐添加共享目录以便文件传输。</p>
+<h3 id="Others"><a href="#Others" class="headerlink" title="Others"></a>Others</h3><p>OS X，iOS，安卓都有很多类似软件，但是特别好的一个没发现。<br>其中微软出的一个叫“Microsoft Remote Desktop”，商店搜就行。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://chenjx.cn/2016/12/https-sni/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Robin Chen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="爱生活，爱的的">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/12/https-sni/" itemprop="url">HTTPS加密的疏漏——SNI扩展字段</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-12-20T08:41:10+08:00">
+                2016-12-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="SNI是什么？"><a href="#SNI是什么？" class="headerlink" title="SNI是什么？"></a>SNI是什么？</h2><p><a class="external" href="https://zh.wikipedia.org/wiki/%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%90%8D%E7%A7%B0%E6%8C%87%E7%A4%BA" target="_blank" rel="external">维基百科（服务器名称指示）</a></p>
+<p><strong>服务器名称指示</strong>（Server Name Indication 简称 SNI）是一个扩展的TLS计算机联网协议，这允许在握手过程开始时通过客户端告诉它正在连接的服务器的主机名称。</p>
+<p><strong>作用</strong>：允许在相同的IP地址和TCP端口号的服务器上使用多个证书，而不必所有网站都使用同一个证书。在概念上等同于HTTP/1.1基于域名的虚拟主机，只不过这是在HTTPS上实现的。</p>
+<h2 id="SNI信息的传输是明文的？"><a href="#SNI信息的传输是明文的？" class="headerlink" title="SNI信息的传输是明文的？"></a>SNI信息的传输是明文的？</h2><p>SNI信息是在握手的过程中，确切说是在客户端发送给服务端的第一个握手包中传递的信息。<br>这时候SSL连接还未建立起来，因此SNI信息是明文传输的。</p>
+<p>如下图所示，SNI信息即在第一个SSL握手包中（Client Hello）<br><img src="/content/images/2016/12/1.PNG" alt=""></p>
+<p>具体的SNI信息如下，显然是明文的：<br><img src="/content/images/2016/12/2.PNG" alt=""></p>
+<h2 id="明文的SNI会带来什么后果？"><a href="#明文的SNI会带来什么后果？" class="headerlink" title="明文的SNI会带来什么后果？"></a>明文的SNI会带来什么后果？</h2><p>SNI是明文的，而且是不可能被加密的，因为秘钥还没协商好呢。<br>实际会带来的后果并不涉及安全问题，仅仅只是所请求的服务器泄露出去了，连接可能受到干扰。<br>如果网络防火墙的包过滤系统检查SNI信息的话，就可以屏蔽某些域名的https访问，就像屏蔽http一样简单。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://chenjx.cn/2016/12/arukas-io/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Robin Chen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="爱生活，爱的的">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/12/arukas-io/" itemprop="url">Arukas.io——免费docker（开放注册）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-12-05T12:32:57+08:00">
+                2016-12-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://arukas.io/" target="_blank" rel="external">Arukas</a>是一个正在开放公测的容器宿主商，目前完全免费，据称将来也会保留免费的plan。</p>
+<p>免费注册，注册验证需等24小时。</p>
+<p>教程就不细说了，网上一大堆。比如： <a href="http://51.ruyo.net/p/2058.html" target="_blank" rel="external">http://51.ruyo.net/p/2058.html</a></p>
+<p>可以做什么？  </p>
+<ol>
+<li>搭建各种容器</li>
+<li>VPS搭建练手（重启会恢复默认，所以只是练手）</li>
+</ol>
+<p>目前服务的限制比较多，共用ip、NAT端口随机分配，所以只能用来练技术。</p>
+<p>秀秀自己的<br><img src="/content/images/2016/12/----20161205201440.png" alt=""></p>
+<p>服务器IP和端口会不定期更新怎么办？</p>
+<p>用nodejs写个小爬虫就可以解决了，登陆拿cookie，然后抓数据再格式化一下。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> superagent = <span class="built_in">require</span>(<span class="string">'superagent'</span>);</div><div class="line"></div><div class="line"><span class="built_in">require</span>(<span class="string">'http'</span>).createServer(<span class="function"><span class="keyword">function</span>(<span class="params">req, res</span>) </span>&#123;</div><div class="line">    superagent.post(<span class="string">"https://app.arukas.io/api/login"</span>)</div><div class="line">    .send(&#123;<span class="attr">email</span>: <span class="string">"yourmail@gmail.com"</span>, <span class="attr">password</span>: <span class="string">"yourArukasPassword"</span>&#125;)</div><div class="line">    .end(<span class="function">(<span class="params">err, sres</span>) =&gt;</span> &#123;</div><div class="line">        <span class="keyword">var</span> cookie = sres.header[<span class="string">'set-cookie'</span>];</div><div class="line">        superagent.get(<span class="string">"https://app.arukas.io/api/containers"</span>)</div><div class="line">        .set(<span class="string">"Cookie"</span>, cookie)</div><div class="line">        .end(<span class="function">(<span class="params">err, sres</span>) =&gt;</span> &#123;</div><div class="line">            <span class="keyword">var</span> t = sres.text;</div><div class="line">            <span class="keyword">var</span> i = t.indexOf(<span class="string">'"container_port":1234'</span>);</div><div class="line">            <span class="keyword">var</span> port = t.slice(i+<span class="number">37</span>, i+<span class="number">42</span>);</div><div class="line">            <span class="keyword">var</span> ip = t.slice(i+<span class="number">57</span>, t.indexOf(<span class="string">".jp"</span>, i+<span class="number">57</span>)).replace(<span class="regexp">/-/g</span>, <span class="string">'.'</span>);</div><div class="line">            res.write(<span class="string">"ip :  "</span> + ip + <span class="string">"\n"</span>);</div><div class="line">            res.write(<span class="string">"port: "</span> + port + <span class="string">"\n"</span>);</div><div class="line">            res.write(<span class="string">"pass: 1024\n"</span>);</div><div class="line">            res.end(<span class="string">"crypto: aes-256-cfb\n"</span>);</div><div class="line">        &#125;);</div><div class="line">    &#125;);</div><div class="line">&#125;).listen(<span class="number">1080</span>);</div></pre></td></tr></table></figure></p>
+<div style="display:none"><br><br>以上程序只是粗略版的，可以加上base64编码的url和二维码。<br><br>然后就如下图了<br><img src="/content/images/2016/12/----20161212024002.png" alt=""><br><br>好吧，东西在这里 –&gt; <a href="https://sharess.arukascloud.io/" target="_blank" rel="external">https://sharess.arukascloud.io/</a><br><br></div>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://chenjx.cn/2016/12/small-skills/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1155,409 +1514,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://chenjx.cn/2016/06/code-line-number/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Robin Chen">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="爱生活，爱的的">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/06/code-line-number/" itemprop="url">网页代码高亮并显示行号</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-06-08T09:54:17+08:00">
-                2016-06-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="代码高亮-highlight-js"><a href="#代码高亮-highlight-js" class="headerlink" title="代码高亮 highlight.js"></a>代码高亮 highlight.js</h2><p>本站代码高亮的插件来自<a href="https://highlightjs.org/" target="_blank" rel="external">highlight.js</a>。在本页就有实例。使用方法非常简单，推荐以下的做法：</p>
-<p>1、在下载页面 <a href="https://highlightjs.org/download/" target="_blank" rel="external">https://highlightjs.org/download/</a> 勾选你想要高亮的语言，然后下载js文件，并放到自己的网站。如果只要使用几种基本的语言，可以直接引用官网给的cdn链接。</p>
-<p>2、在demo页面 <a href="https://highlightjs.org/static/demo/" target="_blank" rel="external">https://highlightjs.org/static/demo/</a> 选择喜欢的高亮风格，并下载对应的css文件放到自己的网站，或者引用链接。</p>
-<p>3、在页面添加以下html代码启用高亮。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"/path/to/styles/default.css"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"/path/to/highlight.pack.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined">hljs.initHighlightingOnLoad();</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure></p>
-<p>4、这时页面上插入的代码应该已经自动高亮了。如果需要指定使用的高亮类型，只需要在<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">```</div><div class="line"> // markdown语法</div><div class="line"> ```js</div><div class="line"> // 这里插入js代码</div></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">官方使用说明：https://highlightjs.org/usage/</div><div class="line"></div><div class="line">推荐看看官方的API说明：http://highlightjs.readthedocs.io/en/latest/api.html</div><div class="line"></div><div class="line">## 显示行号 line-numbers </div><div class="line"></div><div class="line">查阅官方的API得知highlight不提供显示行号的功能，需要自己添加。下面分享本站添加行号的方法。添加以下js和css代码：</div><div class="line"></div><div class="line">js：</div><div class="line">```js line-numbers</div><div class="line">$(function() &#123;</div><div class="line">    $(&apos;pre code&apos;).each(function() &#123;</div><div class="line">        var lines = $(this).text().split(&apos;\n&apos;).length - 1;</div><div class="line">        if (lines &lt; 4) return;  // 当行数小于4时不显示行号</div><div class="line">        var $numbering = $(&apos;&lt;ol/&gt;&apos;).addClass(&apos;pre-numbering&apos;);</div><div class="line">        $(this)</div><div class="line">            .addClass(&apos;has-numbering&apos;)</div><div class="line">            .parent()</div><div class="line">            .append($numbering);</div><div class="line">        for(i=1;i&lt;=lines;i++) &#123;</div><div class="line">            $numbering.append($(&apos;&lt;li/&gt;&apos;).text(i));</div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<p>css：<br><figure class="highlight css"><figcaption><span>line-numbers</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">pre</span> &#123;</div><div class="line">    <span class="attribute">position</span>: relative;</div><div class="line">&#125;</div><div class="line"><span class="selector-tag">code</span><span class="selector-class">.has-numbering</span> &#123;</div><div class="line">    <span class="attribute">margin-left</span>: <span class="number">26px</span>;</div><div class="line">&#125;</div><div class="line"><span class="selector-class">.pre-numbering</span> &#123;</div><div class="line">    <span class="attribute">position</span>: absolute;</div><div class="line">    <span class="attribute">top</span>: <span class="number">0</span>;</div><div class="line">    <span class="attribute">left</span>: <span class="number">0</span>;</div><div class="line">    <span class="attribute">width</span>: <span class="number">26px</span>;</div><div class="line">    <span class="attribute">height</span>: <span class="number">100%</span>;</div><div class="line">    <span class="attribute">margin</span>: <span class="number">0</span>;</div><div class="line">    <span class="attribute">padding</span>: <span class="number">9px</span> <span class="number">4px</span>;</div><div class="line">    <span class="attribute">background-color</span>: <span class="number">#EEE</span>;</div><div class="line">    <span class="attribute">text-align</span>: right;</div><div class="line">    <span class="attribute">font-family</span>: consolas, monospace;</div><div class="line">    <span class="attribute">font-size</span>: <span class="number">13pt</span>;</div><div class="line">    <span class="attribute">line-height</span>: <span class="number">135%</span>;</div><div class="line">    <span class="attribute">color</span>: <span class="number">#AAA</span>;</div><div class="line">    <span class="attribute">list-style</span>: none;</div><div class="line">&#125;</div><div class="line"><span class="selector-class">.pre-numbering</span> <span class="selector-tag">li</span> &#123;</div><div class="line">    <span class="attribute">margin</span>: <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://chenjx.cn/2016/06/blog-help/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Robin Chen">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="爱生活，爱的的">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/06/blog-help/" itemprop="url">技术支持——Ghost博客</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-06-08T09:01:53+08:00">
-                2016-06-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><strong>本文收集所有使用ghost博客中的学习到的技术和一些心得体会，长期更新</strong></p>
-<h2 id="Markdown"><a href="#Markdown" class="headerlink" title="Markdown"></a>Markdown</h2><p>Markdown是Ghost博客使用的编辑文章的语法。关于Markdown的技术文档到处都能找到。例如：<a href="http://support.ghost.org/markdown-guide/" target="_blank" rel="external">http://support.ghost.org/markdown-guide/</a> 。需要注意的是，并不是所有语法Ghost都支持。Ghost官方给了一份很详细的使用说明，基本涵盖了所有常用的Markdown语法。当你搭建好了Ghost博客，这份文档就会是你的第一篇博文。在编辑页面能够很直观地看到Markdown和对应的效果。</p>
-<p>这就是那篇默认创建的博文，我一直都留着：<a href="http://chenjx.cn/welcome-to-ghost/">Welcome to Ghost</a>。</p>
-<p>使用中可能会忽略的一点是：插入图片的语法是<br><code>![图片名](图片链接)</code>，而如果图片是需要上传的，只要链接留空，就能在编辑框右边的预览框上传图片了。上传后会自动补全链接。</p>
-<h2 id="社会化评论框"><a href="#社会化评论框" class="headerlink" title="社会化评论框"></a>社会化评论框</h2><p>本站使用的是<strong>友言</strong>社会化评论框。官网链接：<a href="http://www.uyan.cc/" target="_blank" rel="external">http://www.uyan.cc/</a> 。在官网可以看到介绍和使用说明，嵌入Ghost的方式非常简单，只需要将html代码插入到你所使用的主题里的博客页面，一般是blog.hbs 。</p>
-<p>需要注意的是，有许多Ghost的主题采用了单页应用的架构（SPA），例如：<a href="https://github.com/zutrinken/bleak" target="_blank" rel="external">bleak</a>。如果你使用的是这种主题，友言的评论框不会在每一次页面跳转都重新加载。解决的方法是在引入友言的js文件之前加上一句js代码，如下，添加第3行。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;!-- UY Begin --&gt;  </div><div class="line">&lt;div id=&quot;uyan_frame&quot;&gt;&lt;/div&gt;  </div><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;uyan_loaded = uyan_loadover = undefined&lt;/script&gt;  </div><div class="line">&lt;script type=&quot;text/javascript&quot; src=&quot;http://v2.uyan.cc/code/uyan.js?uid=&#123;yourID&#125;&quot;&gt;&lt;/script&gt;  </div><div class="line">&lt;!-- UY End --&gt;</div></pre></td></tr></table></figure></p>
-<p>另外，同样推荐友言的兄弟：社会分享按钮<a href="http://www.jiathis.com/" target="_blank" rel="external">JiaThis</a>和推荐引擎<a href="http://www.ujian.cc/" target="_blank" rel="external">友荐</a>。</p>
-<h2 id="代码高亮"><a href="#代码高亮" class="headerlink" title="代码高亮"></a>代码高亮</h2><p>本站代码高亮的插件来自<a href="https://highlightjs.org/" target="_blank" rel="external">highlight.js</a>。在本页就有实例。使用方法非常简单，推荐以下的做法：</p>
-<p>1、在下载页面 <a href="https://highlightjs.org/download/" target="_blank" rel="external">https://highlightjs.org/download/</a> 勾选你想要高亮的语言，然后下载js文件，并放到自己的网站。如果只要使用几种基本的语言，可以直接引用官网给的cdn链接。</p>
-<p>2、在demo页面 <a href="https://highlightjs.org/static/demo/" target="_blank" rel="external">https://highlightjs.org/static/demo/</a> 选择喜欢的高亮风格，并下载对应的css文件放到自己的网站，或者引用链接。</p>
-<p>3、在页面添加以下html代码启用高亮。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"/path/to/styles/default.css"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"/path/to/highlight.pack.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined">hljs.initHighlightingOnLoad();</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure></p>
-<p>4、这时页面上插入的代码应该已经自动高亮了。如果需要指定使用的高亮类型，只需要在<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">```</div><div class="line"> // markdown语法</div><div class="line"> ```js</div><div class="line"> // 这里插入js代码</div></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">官方使用说明：https://highlightjs.org/usage/</div><div class="line"></div><div class="line">推荐看看官方的API说明：http://highlightjs.readthedocs.io/en/latest/api.html</div><div class="line"></div><div class="line">**代码显示行号**</div><div class="line"></div><div class="line">查阅官方的API得知highlight不提供显示行号的功能，需要自己添加。本站添加行号的方法请看：[网页代码高亮并显示行号](http://chenjx.cn/code-line-number#linenumbers) </div><div class="line"></div><div class="line">## 标签云</div><div class="line"></div><div class="line">截至发文，标签云是Ghost的实验室功能，默认不启用。需要在设置里开启，如下图：</div><div class="line">![](/content/images/2016/06/----20160608183156.png)</div><div class="line"></div><div class="line">然后在你想要显示标签云的地方加入类似下面的代码：</div><div class="line">```html</div><div class="line">&#123;&#123;#get &quot;tags&quot; limit=&quot;all&quot; include=&quot;count.posts&quot; order=&quot;count.posts desc&quot; &#125;&#125;</div><div class="line">    &#123;&#123;#foreach tags&#125;&#125;</div><div class="line">        &lt;a href=&quot;/tag/&#123;&#123;slug&#125;&#125;&quot; class=&quot;tag-item&quot;&gt;</div><div class="line">        &lt;div&gt;&#123;&#123;name&#125;&#125; (&#123;&#123;count.posts&#125;&#125;)&lt;/div&gt;&lt;/a&gt;</div><div class="line">    &#123;&#123;/foreach&#125;&#125;</div><div class="line">&#123;&#123;/get&#125;&#125;</div></pre></td></tr></table></figure>
-<p>注意可能需要重启ghost。然后标签会按照数量和更新时间倒序输出。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://chenjx.cn/2016/06/edslay/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Robin Chen">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="爱生活，爱的的">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/06/edslay/" itemprop="url">李安勇毛概复习笔记</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-06-05T09:20:53+08:00">
-                2016-06-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="1-经济学十大原理"><a href="#1-经济学十大原理" class="headerlink" title="1 经济学十大原理"></a>1 经济学十大原理</h2><p><strong>1~4关于作出决策。</strong></p>
-<h3 id="1、人们面临权衡取舍"><a href="#1、人们面临权衡取舍" class="headerlink" title="1、人们面临权衡取舍"></a>1、人们面临权衡取舍</h3><p>例如国家收入可以用与国防也可以用于生活（大炮和黄油）。<br>效率和平等之间也是权衡取舍，效率指把蛋糕做大，平等指分割蛋糕。（平等会降低生产积极性）。</p>
-<h3 id="2、一种东西的成本是为了得到它所放弃的东西（机会成本）"><a href="#2、一种东西的成本是为了得到它所放弃的东西（机会成本）" class="headerlink" title="2、一种东西的成本是为了得到它所放弃的东西（机会成本）"></a>2、一种东西的成本是为了得到它所放弃的东西（机会成本）</h3><p>例如上大学的成本要包括时间。</p>
-<h3 id="3、理性人考虑边际量"><a href="#3、理性人考虑边际量" class="headerlink" title="3、理性人考虑边际量"></a>3、理性人考虑边际量</h3><p>理性=边际利益&gt;边际成本<br>例如飞机即将起飞，原本500元的机票300卖出去也是赚了。因为边际成本只是一顿飞机餐，小于边际利益。<br>同时也解释了物以稀为贵，数量多的东西，即便是必需品，因为少一点也没太大差别，所以便宜。而数量少的，即便不太需要，但是因为太稀缺，所以多一点少一点差别很大。例如水和钻石。  </p>
-<h3 id="4、人们会对激励-incentive-作出反应"><a href="#4、人们会对激励-incentive-作出反应" class="headerlink" title="4、人们会对激励(incentive)作出反应"></a>4、人们会对激励(incentive)作出反应</h3><p>激励：引起人们做出某种行为的东西，例如惩罚或奖励。<br>例如：<br>市场商品价格变动引起的行为。<br>汽油税使人开节油型车。<br>安全带——降低了车祸的代价=降低了缓慢驾车的利益=促使司机更快驾车  </p>
-<p><strong>5~7关于相互交易</strong></p>
-<h3 id="5、贸易能使每个人状况更好"><a href="#5、贸易能使每个人状况更好" class="headerlink" title="5、贸易能使每个人状况更好"></a>5、贸易能使每个人状况更好</h3><p>例子很简单，如果你的家庭不贸易，那么你们需要自己种粮食，做衣服，盖房子。国家贸易和家庭也是类似的。<br>根本：贸易使每个人都可以专门从事自己最擅长的活动。通过交易，可以按较低的成本获得各种各样的物品与劳务。  </p>
-<h3 id="6、市场通常是组织经济活动的一种好方法"><a href="#6、市场通常是组织经济活动的一种好方法" class="headerlink" title="6、市场通常是组织经济活动的一种好方法"></a>6、市场通常是组织经济活动的一种好方法</h3><p>看不见的手——价格。<br>价格既反映物品的社会价值，也反映生产该物品的社会成本。<br>指引这些单个买者和卖者的价格调节，在大多数情况下实现了整个社会福利的最大化。<br>税收——扭曲了价格。<br>苏联和东欧的中央计划经济失败——把看不见的手绑起来了。  </p>
-<h3 id="7、政府有时可以改善市场结果"><a href="#7、政府有时可以改善市场结果" class="headerlink" title="7、政府有时可以改善市场结果"></a>7、政府有时可以改善市场结果</h3><p>一、只有在政府实施规则并维持市场经济至关重要的制度是，看不见的手才能施展其魔力。最重要的是，只有产权得到保护，市场才能运行。<br>例如餐馆确保客户吃饭付钱才会提供服务；农民确保作物不被偷走才会种。这些都需要政府提供保障。<br>二、看不见的手是强有力的，但不是全能的。<br>效率方面：市场本身不能有效配置资源的情况——市场失灵。（可能原因：外部性、市场力量）在这种情况下（例如存在外部性和市场力量），设计良好的公共政策可以提高经济效率。<br>公平分配方面：市场经济不能确保公平分配经济成果，不能提供基本的食物衣服医疗保障。这时需要公共政策提高公平性。（例如所得税，福利制度）。  </p>
-<p><strong>8~10关于整体经济如何运行</strong></p>
-<h3 id="8、一国的生活水平取决于它生产物品与劳务的能力"><a href="#8、一国的生活水平取决于它生产物品与劳务的能力" class="headerlink" title="8、一国的生活水平取决于它生产物品与劳务的能力"></a>8、一国的生活水平取决于它生产物品与劳务的能力</h3><p>各国生活水平归咎于生产率的差别——即一个工人一小时生产的物品与劳务数量的差别。  </p>
-<h3 id="9、当政府发行过多货币时，物价上升"><a href="#9、当政府发行过多货币时，物价上升" class="headerlink" title="9、当政府发行过多货币时，物价上升"></a>9、当政府发行过多货币时，物价上升</h3><p>通货膨胀。</p>
-<h3 id="10、社会面临通货膨胀与失业之间的短期权衡取舍"><a href="#10、社会面临通货膨胀与失业之间的短期权衡取舍" class="headerlink" title="10、社会面临通货膨胀与失业之间的短期权衡取舍"></a>10、社会面临通货膨胀与失业之间的短期权衡取舍</h3><p>长期而言，物价水平高是货币量增加的结果。<br>短期而言，货币注入带来购买力的增长，刺激了物品和劳务的需求。高需求刺激了价格上涨，同时也促使更多地生产。进而需要更多地雇佣工人。</p>
-<h2 id="2-弹性及其应用-（Topic2-3）"><a href="#2-弹性及其应用-（Topic2-3）" class="headerlink" title="2 弹性及其应用 （Topic2~3）"></a>2 弹性及其应用 （Topic2~3）</h2><h3 id="需求价格弹性："><a href="#需求价格弹性：" class="headerlink" title="需求价格弹性："></a>需求价格弹性：</h3><p>需求量对价格变动的反应程度。反应很大说明富有弹性。<br>相关：<strong>相近替代品的可获得性</strong>；<strong>必需品与奢侈品</strong>；<strong>市场的定义</strong>（范围大小，例如食物缺乏弹性，冰淇淋富有弹性）；<strong>时间框架</strong>（长期更有弹性）。  </p>
-<h3 id="供给价格弹性："><a href="#供给价格弹性：" class="headerlink" title="供给价格弹性："></a>供给价格弹性：</h3><p>供给量对价格变动的反应程度。  </p>
-<h3 id="分析应用"><a href="#分析应用" class="headerlink" title="分析应用"></a>分析应用</h3><p>画出价格（纵坐标）与数量（横坐标）的供给和需求两条曲线。交点处为交易的数量和价格。一种政策会改变价格或者数量，从而使曲线移动。分析时注意考虑商品的需求弹性供给弹性有短期和长期的差别。  </p>
-<h3 id="禁毒是降低了毒品犯罪还是增加"><a href="#禁毒是降低了毒品犯罪还是增加" class="headerlink" title="禁毒是降低了毒品犯罪还是增加"></a>禁毒是降低了毒品犯罪还是增加</h3><p>禁毒教育减少了毒品需求，但是禁毒行动提高了毒品的价格。结论：禁毒在短期中增加了与毒品相关的犯罪，而在长期中会减少这种犯罪。</p>
-<h2 id="3-消费者、生产者与市场效率（Topic4）"><a href="#3-消费者、生产者与市场效率（Topic4）" class="headerlink" title="3 消费者、生产者与市场效率（Topic4）"></a>3 消费者、生产者与市场效率（Topic4）</h2><p><strong>福利经济学</strong>：资源配置如何影响经济福利。<br>结论：供求均衡可以使买者和卖者的总利益最大化。  </p>
-<h3 id="消费者剩余"><a href="#消费者剩余" class="headerlink" title="消费者剩余"></a>消费者剩余</h3><p>对消费者而言，<strong>支付意愿</strong>减去实际支付的费用就是消费者剩余。<br><strong>需求曲线</strong>以下和价格以上部分的面积就是消费者剩余。<br>价格降低增加了消费者剩余。消费者剩余衡量了消费者得到的福利。</p>
-<h3 id="生产者剩余"><a href="#生产者剩余" class="headerlink" title="生产者剩余"></a>生产者剩余</h3><p>对生产者而言，卖出商品得到的量减去生产成本就是生产者剩余。<br><strong>供给曲线</strong>以上和价格以下部分的面积就是生产者剩余。</p>
-<h3 id="市场效率"><a href="#市场效率" class="headerlink" title="市场效率"></a>市场效率</h3><p><strong>总剩余</strong>=买者的意愿-卖者的成本</p>
-<h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><p><strong>肾脏器官交易合法化的利与弊</strong><br>利：使社会总剩余提高；弊：会使人认为损害了穷人的利益和造福了富人</p>
-<p><strong>黄牛</strong>——供给和需求在路边相遇</p>
-<h2 id="4-外部性-Topic7-8"><a href="#4-外部性-Topic7-8" class="headerlink" title="4 外部性 Topic7~8"></a>4 外部性 Topic7~8</h2><p>外部性是一种市场失灵。当一个人从事一种影响旁观者福利，而对这种影响既不付报酬又得不到报酬，就产生了<strong>外部性</strong>。影响的正负产生了正的外部性和负的外部性。当存在外部性时，社会对市场结果的关注扩大到买者与卖者的福利之外，还要包括间接受影响的旁观者的福利。而旁观者的福利不在买者和卖着决定需求或供给考虑之内。这时候需要政府的干预解决市场失灵。</p>
-<h3 id="外部性与市场效率"><a href="#外部性与市场效率" class="headerlink" title="外部性与市场效率"></a>外部性与市场效率</h3><p><strong>负的外部性</strong>增加了生产商品的<strong>社会成本</strong>，从而使市场的<strong>总剩余</strong>减少。<br>解决方法——<strong>外部性内在化</strong>：税收</p>
-<p><strong>正的外部性</strong>增加了<strong>社会意愿</strong>的数量，所以增加了<strong>总剩余</strong>。<br>例如教育带来的正的外部性。所以政府采取<strong>补贴</strong>的政策。</p>
-<h3 id="外部性的私人解决办法"><a href="#外部性的私人解决办法" class="headerlink" title="外部性的私人解决办法"></a>外部性的私人解决办法</h3><p>道德约束，慈善行为，签订合同都属于私人解决办法。</p>
-<p><strong>科斯定理</strong>：如果私人各方可以无成本地就资源配置进行协商，那么私人市场总能解决外部性问题，并有效地配置资源。<br>例子：养狗的人从中获得快乐，而被狗吵到的邻居减少了快乐。如果要使总快乐增加，可以让他们协商。如果被狗吵的邻居减少的快乐比养狗的人获得的多，那么只需要被吵的邻居支付一笔前让其放弃养狗，这样双方都会更快乐。而如果被吵的邻居减少的快乐并没有养狗的人获得的多，那么只需要保持不变。由此可以看出协商可以使资源配置最有效。</p>
-<p><strong>为什么私人解决不总是有效</strong>：科斯定理的前提是协商无成本，当协商成本大的时候私人解决就无效了。例如养狗的人和他的邻居讲不同的语言，他们协商需要请一个翻译。那么就可能失效了。</p>
-<h3 id="针对外部性的公共政策"><a href="#针对外部性的公共政策" class="headerlink" title="针对外部性的公共政策"></a>针对外部性的公共政策</h3><p><strong>管制</strong><br><strong>矫正</strong>——税收和补贴</p>
-<h2 id="5-微观经济学前沿（Topic13）"><a href="#5-微观经济学前沿（Topic13）" class="headerlink" title="5 微观经济学前沿（Topic13）"></a>5 微观经济学前沿（Topic13）</h2><h3 id="不对称信息"><a href="#不对称信息" class="headerlink" title="不对称信息"></a>不对称信息</h3><p>信息不对称——隐蔽性行为和隐蔽性特征。没有信息的一方都想知道相关信息，但有信息的一方想掩盖这些信息。</p>
-<p><strong>隐蔽性行为</strong>：委托人、代理人及道德风险。<br>雇佣关系中，代理人可能会作出不道德的行为，而委托人就要想尽办法鼓励代理人更负责地行事。方法：<strong>提高监督</strong>，<strong>高工资</strong>，<strong>延期支付</strong>。</p>
-<p><strong>隐蔽性特征</strong>：逆向选择和次品问题。<br>逆向选择是卖者对所出售的物品了解得比买者多的产生的问题。所谓逆向，就是指卖者出售物品的选择可能是逆向的。例如二手车市场、劳动市场、保险市场。</p>
-<p><strong>为传递私人信息发信号</strong><br>广告……</p>
-<p><strong>引起信息披露的筛选</strong><br>考试、学位……</p>
-<p><strong>不对称信息与公共政策</strong><br>例如道德风险和逆向选择，可能要求政府有所作为。</p>
-<h3 id="政治经济学（公共选择学）"><a href="#政治经济学（公共选择学）" class="headerlink" title="政治经济学（公共选择学）"></a>政治经济学（公共选择学）</h3><p><strong>塞尔多投票悖论</strong>——多数投票本身并没有告诉我们社会真正想要什么结果。</p>
-<p><strong>阿罗不可能性定理</strong>——没有一种投票制度能够满足一个好的投票方案所需的几个条件：<strong>确定性</strong>（如果每个人都偏好A，则A击败了B），<strong>传递性</strong>（如果A击败了B而B击败了C，则A击败了C）<strong>不相关选择的独立性</strong>（A和B之间的排序不应取决于是否还可以得到某个第三种结果C），<strong>没有独裁者</strong>（无论其他每个人的偏好如何，没有一个人总能获胜）。</p>
-<p><strong>中值选民说了算</strong></p>
-<h3 id="行为经济学"><a href="#行为经济学" class="headerlink" title="行为经济学"></a>行为经济学</h3><p><strong>人并不总是理性的</strong></p>
-<p>过分自信<br>过分重视从现实生活中观察到的细枝末节<br>不愿改变自己的观念</p>
-<p><strong>人关注公正</strong></p>
-<p><strong>人有时是矛盾的</strong><br>想减肥的人面对甜点可能管不住嘴。</p>
-<h2 id="6-经济增长（宏观经济学）"><a href="#6-经济增长（宏观经济学）" class="headerlink" title="6 经济增长（宏观经济学）"></a>6 经济增长（宏观经济学）</h2><p>略。</p>
-<h2 id="简答题例题"><a href="#简答题例题" class="headerlink" title="简答题例题"></a>简答题例题</h2><h3 id="1-上大学是为了获得知识，那为什么获得学位同样重要？"><a href="#1-上大学是为了获得知识，那为什么获得学位同样重要？" class="headerlink" title="1. 上大学是为了获得知识，那为什么获得学位同样重要？"></a>1. 上大学是为了获得知识，那为什么获得学位同样重要？</h3><p><strong>信息不对称</strong>：你获得了知识，但是用人单位要知道你的能力，需要通过一些<strong>信号、标签</strong>。</p>
-<h3 id="2-路边经常出现很多垃圾，为什么家里没有？"><a href="#2-路边经常出现很多垃圾，为什么家里没有？" class="headerlink" title="2. 路边经常出现很多垃圾，为什么家里没有？"></a>2. 路边经常出现很多垃圾，为什么家里没有？</h3><p>路边是公共的，没有人会care。<strong>外部性</strong>：资源是公共所有还是私人所有</p>
-<h2 id="论述题例题"><a href="#论述题例题" class="headerlink" title="论述题例题"></a>论述题例题</h2><h3 id="1-中国和欧美的模式差异，中国为什么从计划经济走向市场经济or为什么市场经济配置资源更有效？"><a href="#1-中国和欧美的模式差异，中国为什么从计划经济走向市场经济or为什么市场经济配置资源更有效？" class="headerlink" title="1. 中国和欧美的模式差异，中国为什么从计划经济走向市场经济or为什么市场经济配置资源更有效？"></a>1. 中国和欧美的模式差异，中国为什么从计划经济走向市场经济or为什么市场经济配置资源更有效？</h3><h3 id="2-既然市场经济这么好，那为什么还需要政府？"><a href="#2-既然市场经济这么好，那为什么还需要政府？" class="headerlink" title="2. 既然市场经济这么好，那为什么还需要政府？"></a>2. 既然市场经济这么好，那为什么还需要政府？</h3><p>市场经济的局限性，有时候需要政府出手。</p>
-<h3 id="3-当需要政府的时候，怎么能确保政府所做的决策是正确的？"><a href="#3-当需要政府的时候，怎么能确保政府所做的决策是正确的？" class="headerlink" title="3. 当需要政府的时候，怎么能确保政府所做的决策是正确的？"></a>3. 当需要政府的时候，怎么能确保政府所做的决策是正确的？</h3><p>靠规则、制度。</p>
-<h3 id="4-为什么大家都知道环保很重要，政府也一再强调，但为什么环保问题依然严重？"><a href="#4-为什么大家都知道环保很重要，政府也一再强调，但为什么环保问题依然严重？" class="headerlink" title="4. 为什么大家都知道环保很重要，政府也一再强调，但为什么环保问题依然严重？"></a>4. 为什么大家都知道环保很重要，政府也一再强调，但为什么环保问题依然严重？</h3><p>排放污染物的企业没有受到应有的惩罚。——制度缺陷</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1607,7 +1563,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">36</span>
+                <span class="site-state-item-count">39</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
