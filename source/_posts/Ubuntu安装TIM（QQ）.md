@@ -1,6 +1,6 @@
 ---
 title: Ubuntu安装TIM（QQ）
-date: 2017-08-17 11:24:43
+date: 2017-08-07 11:24:43
 tags:
 ---
 > ubuntu上使用qq的方法有很多，可以用wine或者crossover安装，qq版本又分普通版、轻聊版、国际版、TIM。本文介绍的方法是目前我尝试过的最接近完美的方案——crossover安装TIM
